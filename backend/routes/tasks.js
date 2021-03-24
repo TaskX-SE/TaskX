@@ -1,0 +1,82 @@
+const router = require('express').Router();
+let Task = require('../models/task.model');
+
+router.route('/').get((req, res) => {
+  Task.find()
+    .then(tasks => res.json(tasks))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/add-task').post((req, res) => {
+
+  const newTask = new Task({
+      taskName: req.body.taskName,
+      taskDesc: req.body.taskDesc,
+      taskDuration: req.body.taskDuration,
+      taskDeadline: req.body.taskDeadline,
+      taskCategory: req.body.taskCategory
+  });
+
+  newTask.save()
+    .then(() => res.json('Task added!'))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.route('/task/:id').get((req, res) => {
+
+    Task.findById(req.params.id)
+    .then(task => { res.send(task); })
+    .catch(err => res.status(400).send(err));
+  
+  });
+
+//   router.route('/task-by-user-id/:user_id').get((req, res) => {
+
+//     Task.find({ 'userId': user_id }, function(err, tasks) {
+//         if (err) throw err;
+      
+//         // 'users' is an array of the User objects retrieved.
+        // res.send(tasks);
+
+//         // tasks.forEach(function(task) {
+//           // Do something with the password.
+//           // The password is stored in user.credentials.password
+//         // });
+//       });
+  
+//   });
+
+  router.patch("/update-task/:id", async (req, res) => {
+    try {
+		const task = await Task.findOne({ _id: req.params.id })
+
+		if (req.body.taskName) {
+			task.taskName = req.body.taskName
+		}
+		if (req.body.taskDesc) {
+			task.taskDesc = req.body.taskDesc
+		}
+        if (req.body.taskDuration) {
+			task.taskDuration = req.body.taskDuration
+		}
+        if (req.body.taskDeadline) {
+			task.taskDeadline = req.body.taskDeadline
+		}
+
+		await task.save()
+		res.send(task)
+	} catch {
+		res.status(404)
+		res.send({ error: "Task doesn't exist!" })
+	}
+  });
+
+  router.route('/delete-task/:id').delete((req, res) => {
+
+    Task.findByIdAndRemove(req.params.id)
+    .then(() => { res.send('Task deleted'); })
+    .catch(err => res.status(400).send(err));
+  
+  });
+
+module.exports = router;
