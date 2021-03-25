@@ -14,7 +14,8 @@ router.route('/add-task').post((req, res) => {
       taskDesc: req.body.taskDesc,
       taskDuration: req.body.taskDuration,
       taskDeadline: req.body.taskDeadline,
-      taskCategory: req.body.taskCategory
+      taskCategory: req.body.taskCategory,
+      taskPriority: req.body.taskPriority
   });
 
   newTask.save()
@@ -61,6 +62,9 @@ router.route('/task/:id').get((req, res) => {
 		}
         if (req.body.taskDeadline) {
 			task.taskDeadline = req.body.taskDeadline
+		}
+    if (req.body.taskPriority) {
+			task.taskPriority = req.body.taskPriority
 		}
 
 		await task.save()
