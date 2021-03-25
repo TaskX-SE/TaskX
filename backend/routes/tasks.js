@@ -15,7 +15,8 @@ router.route('/add-task').post((req, res) => {
       taskDuration: req.body.taskDuration,
       taskDeadline: req.body.taskDeadline,
       taskCategory: req.body.taskCategory,
-      taskPriority: req.body.taskPriority
+      taskPriority: req.body.taskPriority,
+      taskStatus: req.body.taskStatus
   });
 
   newTask.save()
@@ -66,7 +67,9 @@ router.route('/task/:id').get((req, res) => {
     if (req.body.taskPriority) {
 			task.taskPriority = req.body.taskPriority
 		}
-
+    if (req.body.taskStatus) {
+			task.taskStatus = req.body.taskStatus
+		}
 		await task.save()
 		res.send(task)
 	} catch {

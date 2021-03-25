@@ -25,7 +25,12 @@ const taskSchema = new Schema({
     taskPriority: {
         type: Number,
         required: true,
-        default: 1
+        default: -1   // -1: optional default, 0: low, 1: medium, 2: high
+    },
+    taskStatus: {
+        type: Number,
+        required: true,
+        default: 0  // 0: not started default, 1: in progress, 2: completed
     }
 });
 
