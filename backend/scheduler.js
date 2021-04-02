@@ -1,4 +1,9 @@
-let tasks = [
+function getMiliseconds(hrs,min,sec)
+{
+    return((hrs*60*60+min*60+sec)*1000);
+}
+
+var tasks = [
     {
       "taskPriority": 5,
       "taskStatus": 0,
@@ -17,7 +22,7 @@ let tasks = [
       "_id": "605b75c9f70310413071ff85",
       "taskName": "meeting",
       "taskDesc": " creating...",
-      "taskDuration": 1,
+      "taskDuration": 2,
       "taskDeadline": "2020-11-18T12:27:38.000Z",
       "taskCategory": 1,
       "__v": 0
@@ -45,7 +50,7 @@ let tasks = [
       "taskDesc": " creating...",
       "taskDuration": 4.5,
       "taskDeadline": "2020-11-18T22:27:38.000Z",
-      "taskCategory": 4,
+      "taskCategory": 2,
       "__v": 0
     },
 
@@ -74,15 +79,15 @@ let tasks = [
     }*/
 ];
 
-
+function schedule(taskArr){
 var i, cnt = 0;
 let sessions = [];
 
-for (i = 0; i < tasks.length; i++) {
-  if((tasks[i].taskCategory == 1) || (tasks[i].taskCategory == 4)){
+for (i = 0; i < taskArr.length; i++) {
+  if((taskArr[i].taskCategory == 1) || (taskArr[i].taskCategory == 4)){
     //console.log((i + 1));
 
-    tasks.sort(function(a, b){
+    taskArr.sort(function(a, b){
       var x = a.taskDeadline.toLowerCase();
       var y = b.taskDeadline.toLowerCase();
       if (x < y) {return -1;}
@@ -90,10 +95,10 @@ for (i = 0; i < tasks.length; i++) {
       return 0;
     });
 
-    let session = {
-        "taskId": tasks[i]._id,
-        "sessionDuration": tasks[i].taskDuration,
-        "sessionDeadline": 0
+      var session = {
+        "taskId": taskArr[i]._id,
+        "sessionDuration": taskArr[i].taskDuration,
+        "sessionDeadline": new Date()
     }
 
     sessions.push(session);
@@ -101,7 +106,7 @@ for (i = 0; i < tasks.length; i++) {
 
   else{
       //Sort according to the deadline
-    tasks.sort(function(a, b){
+    taskArr.sort(function(a, b){
         var x = a.taskDeadline.toLowerCase();
         var y = b.taskDeadline.toLowerCase();
         if (x < y) {return -1;}
@@ -110,70 +115,100 @@ for (i = 0; i < tasks.length; i++) {
       });
 
       //If deadline are same then consider priority
-      if(i < (tasks.length - 1)){
-          if(tasks[i].taskDeadline == tasks[i + 1].taskDeadline){
-              if(tasks[i].taskPriority < tasks[i + 1].taskPriority){
-                [tasks[i], tasks[i + 1]] = [tasks[i + 1], tasks[i]];
+      if(i < (taskArr.length - 1)){
+          if(taskArr[i].taskDeadline == taskArr[i + 1].taskDeadline){
+              if(taskArr[i].taskPriority < taskArr[i + 1].taskPriority){
+                [taskArr[i], taskArr[i + 1]] = [taskArr[i + 1], taskArr[i]];
               }
           }
       }
 //time slicing
-     if(tasks[i].taskDuration > 1.5){
-          var Q = Math.ceil((tasks[i].taskDuration / 1.5));
+     if(taskArr[i].taskDuration > 1.5){
+          var Q = Math.ceil((taskArr[i].taskDuration / 1.5));
 
           var j;
           for (j = 0; j < (Q - 1); j++){
             
-            let session = {
-                "taskId": tasks[i]._id,
+              session = {
+                "taskId": taskArr[i]._id,
                 "sessionDuration": 1.5,
-                "sessionDeadline": 0
+                "sessionDeadline": new Date()
             }
 
             sessions.push(session);
           }
 
-        let session = {
-            "taskId": tasks[i]._id,
-            "sessionDuration": tasks[i].taskDuration - ((Q - 1)* 1.5),
-            "sessionDeadline": 0
+           session = {
+            "taskId": taskArr[i]._id,
+            "sessionDuration": taskArr[i].taskDuration - ((Q - 1)* 1.5),
+            "sessionDeadline": new Date()
         }
 
         sessions.push(session);
 
 
-          //console.log(tasks[i].taskDuration);
+          //console.log(taskArr[i].taskDuration);
           //console.log(Q);
      }
 
      else{
-      let session = {
-        "taskId": tasks[i]._id,
-        "sessionDuration": tasks[i].taskDuration,
-        "sessionDeadline": 0
+       session = {
+        "taskId": taskArr[i]._id,
+        "sessionDuration": taskArr[i].taskDuration,
+        "sessionDeadline": new Date()
       }
       sessions.push(session);
      }
      
   }
-  //console.log(tasks[i].taskDeadline);
-  //console.log(tasks[i].taskPriority);
-}
+  //console.log(taskArr[i].taskDeadline);
+  //console.log(taskArr[i].taskPriority);
+  }
 
 
 var start_time = 8;
-var end_time = 22;
-var time_t = start_time;
+var end_time = 20;
 
+var start_date_time = new Date();
+var end_date_time = new Date();
+
+start_date_time.setHours(start_time);
+start_date_time.setMinutes(0);
+start_date_time.setSeconds(0);
+end_date_time.setHours(end_time);
+end_date_time.setMinutes(0);
+end_date_time.setSeconds(0);
+
+// console.log(start_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+// console.log(start_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+let curr_date_time;
+if(new Date().getTime() < start_date_time.getTime()){
+  curr_date_time = new Date(start_date_time);
+}else if(new Date().getTime() > end_date_time.getTime()){
+  curr_date_time = new Date(start_date_time)
+  curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(24,0,0));
+}else{
+  curr_date_time = new Date((new Date()).getTime() + getMiliseconds(0,2,0));
+  curr_date_time.setSeconds(0);
+}
 for (i = 0; i < sessions.length; i++){
     
-if(time_t < end_time){
-  time_t = time_t + sessions[i].sessionDuration;
-  sessions[i].sessionDeadline = time_t;
+if(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0) < end_date_time.getTime()){
+  curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0));
+  // curr_date_time.getTime() = curr_date_time.getTime() + sessions[i].sessionDuration;
+  sessions[i].sessionDeadline = new Date(curr_date_time);
+  // console.log(curr_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
 }
 
 else{
-  
+  start_date_time.setTime(start_date_time.getTime() + getMiliseconds(24,0,0));
+  curr_date_time.setTime(start_date_time.getTime());
+  end_date_time.setTime(end_date_time.getTime() + getMiliseconds(24,0,0));
+  // console.log(curr_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+  // console.log(end_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+
+  curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0));
+  sessions[i].sessionDeadline = new Date(curr_date_time);
 }
     /*sessions.sort(function(a, b){
         var x = a.sessionDeadline.toLowerCase();
@@ -182,8 +217,14 @@ else{
         if (x > y) {return 1;}
         return 0;
       });*/
-
-      console.log(sessions[i]);
+     
+}
+return sessions;
 }
 
-//console.log(tasks.length);
+schedule(tasks).forEach(element => {
+  console.log(element.sessionDuration);
+console.log(element.sessionDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+});
+
+//console.log(taskArr.length);
