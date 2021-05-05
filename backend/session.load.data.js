@@ -2,14 +2,18 @@
  * @author Harsh Mange
  * @email harshmange44@gmail.com
  * @create date 2021-04-01 02:10:55
- * @modify date 2021-04-01 14:10:20
+ * @modify date 2021-05-05 21:22:55
  * @desc functions to perform GET, POST, PATCH & DELETE on the session schema
  */
-const axios = require('axios').default;
+ var mongoose = require('mongoose');
+ var newId = new mongoose.Types.ObjectId("56cb91bdc3464f14678934ca");
+ const axios = require('axios').default;
 
 let session = {};
 let sessions = [];
-var newSessionDetails = { 
+var newSessionDetails = {
+  taskId: newId,
+  taskName: "s1",
     sessionDuration: 60,
     sessionDeadline: "01-04-2021 15:00"
  };
@@ -76,9 +80,9 @@ async function createSession(newSession) {
   }
 }
 
-// createSession(newSessionDetails).then(response => {
-//   // console.log(response);
-// });
+createSession(newSessionDetails).then(response => {
+  // console.log(response);
+});
 
 async function updateSession(id,sessionDetails) {
 

@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Calendar</title>
+  <style>
+    #loader {
+      transition: all 0.3s ease-in-out;
+      opacity: 1;
+      visibility: visible;
+      position: fixed;
+      height: 100vh;
+      width: 100%;
+      background: #fff;
+      z-index: 90000;
+    }
+
+    #loader.fadeOut {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: calc(50% - 20px);
+      left: calc(50% - 20px);
+      background-color: #333;
+      border-radius: 100%;
+      -webkit-animation: sk-scaleout 1s infinite ease-in-out;
+      animation: sk-scaleout 1s infinite ease-in-out;
+    }
+
+    @-webkit-keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0);
+      }
+
+      100% {
+        -webkit-transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+    @keyframes sk-scaleout {
+      0% {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+      }
+
+      100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+
+  </style>
+  <link rel="stylesheet" href="./CSS/style.css" />
+  <link rel="stylesheet" href="./CSS/mainstyle.css" />
+  <link rel="stylesheet" href="./CSS/Style1.css" />
+  <link rel="stylesheet" href="./CSS/Style2.css" />
+</head>
+
+<body class="app">
+  <!-- @TOC -->
+  <!-- =================================================== -->
+  <!--
+      + @Page Loader
+      + @App Content
+          - #Left Sidebar
+              > $Sidebar Header
+              > $Sidebar Menu
+
+          - #Main
+              > $Topbar
+              > $App Screen Content
+    -->
+
+  <!-- @Page Loader -->
+  <!-- =================================================== -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <script>
+    window.addEventListener("load", function load() {
+      const loader = document.getElementById("loader");
+      setTimeout(function () {
+        loader.classList.add("fadeOut");
+      }, 300);
+    });
+
+  </script>
+
+  <!-- @App Content -->
+  <!-- =================================================== -->
+  <div>
+    <!-- #Left Sidebar ==================== -->
+    <div class="sidebar">
+      <div class="sidebar-inner">
+        <!-- ### $Sidebar Header ### -->
+        <div class="sidebar-logo">
+          <div class="peers ai-c fxw-nw">
+            <div class="peer peer-greed">
+              <a class="sidebar-link td-n" href="index.html">
+                <div class="peers ai-c fxw-nw">
+                  <div class="peer">
+                    <div class="logo">
+                      <img src="assets/static/images/logo.png" alt="" />
+                    </div>
+                  </div>
+                  <div class="peer peer-greed">
+                    <h5 class="lh-1 mB-0 logo-text">Adminator</h5>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="peer">
+              <div class="mobile-toggle sidebar-toggle">
+                <a href="" class="td-n">
+                  <i class="ti-arrow-circle-left"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ### $Sidebar Menu ### -->
+        <ul class="sidebar-menu scrollable pos-r">
+          <li class="nav-item mT-30 actived">
+            <a class="sidebar-link" href="index.html">
+              <span class="icon-holder">
+                <i class="c-blue-500 ti-home"></i>
+              </span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="sidebar-link" href="email.html">
+              <span class="icon-holder">
+                <i class="c-brown-500 ti-email"></i>
+              </span>
+              <span class="title">Email</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="sidebar-link" href="compose.html">
+              <span class="icon-holder">
+                <i class="c-blue-500 ti-share"></i>
+              </span>
+              <span class="title">Compose</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="sidebar-link" href="calendar.html">
+              <span class="icon-holder">
+                <i class="c-deep-orange-500 ti-calendar"></i>
+              </span>
+              <span class="title">Calendar</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="sidebar-link" href="chat.html">
+              <span class="icon-holder">
+                <i class="c-deep-purple-500 ti-comment-alt"></i>
+              </span>
+              <span class="title">Chat</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="sidebar-link" href="charts.html">
+              <span class="icon-holder">
+                <i class="c-indigo-500 ti-bar-chart"></i>
+              </span>
+              <span class="title">Charts</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="sidebar-link" href="forms.html">
+              <span class="icon-holder">
+                <i class="c-light-blue-500 ti-pencil"></i>
+              </span>
+              <span class="title">Forms</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="sidebar-link" href="ui.html">
+              <span class="icon-holder">
+                <i class="c-pink-500 ti-palette"></i>
+              </span>
+              <span class="title">UI Elements</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" href="javascript:void(0);">
+              <span class="icon-holder">
+                <i class="c-orange-500 ti-layout-list-thumb"></i>
+              </span>
+              <span class="title">Tables</span>
+              <span class="arrow">
+                <i class="ti-angle-right"></i>
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="sidebar-link" href="basic-table.html">Basic Table</a>
+              </li>
+              <li>
+                <a class="sidebar-link" href="datatable.html">Data Table</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" href="javascript:void(0);">
+              <span class="icon-holder">
+                <i class="c-purple-500 ti-map"></i>
+              </span>
+              <span class="title">Maps</span>
+              <span class="arrow">
+                <i class="ti-angle-right"></i>
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="google-maps.html">Google Map</a>
+              </li>
+              <li>
+                <a href="vector-maps.html">Vector Map</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" href="javascript:void(0);">
+              <span class="icon-holder">
+                <i class="c-red-500 ti-files"></i>
+              </span>
+              <span class="title">Pages</span>
+              <span class="arrow">
+                <i class="ti-angle-right"></i>
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="sidebar-link" href="blank.html">Blank</a>
+              </li>
+              <li>
+                <a class="sidebar-link" href="404.html">404</a>
+              </li>
+              <li>
+                <a class="sidebar-link" href="500.html">500</a>
+              </li>
+              <li>
+                <a class="sidebar-link" href="signin.html">Sign In</a>
+              </li>
+              <li>
+                <a class="sidebar-link" href="signup.html">Sign Up</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle" href="javascript:void(0);">
+              <span class="icon-holder">
+                <i class="c-teal-500 ti-view-list-alt"></i>
+              </span>
+              <span class="title">Multiple Levels</span>
+              <span class="arrow">
+                <i class="ti-angle-right"></i>
+              </span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-item dropdown">
+                <a href="javascript:void(0);">
+                  <span>Menu Item</span>
+                </a>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="javascript:void(0);">
+                  <span>Menu Item</span>
+                  <span class="arrow">
+                    <i class="ti-angle-right"></i>
+                  </span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="javascript:void(0);">Menu Item</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);">Menu Item</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- #Main ============================ -->
+    <div class="page-container">
+      <!-- ### $Topbar ### -->
+      <div class="header navbar">
+        <div class="header-container">
+          <ul class="nav-left">
+            <li>
+              <a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);">
+                <i class="ti-menu"></i>
+              </a>
+            </li>
+            <li class="search-box">
+              <a class="search-toggle no-pdd-right" href="javascript:void(0);">
+                <i class="search-icon ti-search pdd-right-10"></i>
+                <i class="search-icon-close ti-close pdd-right-10"></i>
+              </a>
+            </li>
+            <li class="search-input">
+              <input class="form-control" type="text" placeholder="Search..." />
+            </li>
+          </ul>
+          <ul class="nav-right">
+            <li class="notifications dropdown">
+              <span class="counter bgc-red">3</span>
+              <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
+                <i class="ti-bell"></i>
+              </a>
+
+              <ul class="dropdown-menu">
+                <li class="pX-20 pY-15 bdB">
+                  <i class="ti-bell pR-10"></i>
+                  <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
+                </li>
+                <li>
+                  <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+                    <li>
+                      <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+                        <div class="peer mR-15">
+                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt="" />
+                        </div>
+                        <div class="peer peer-greed">
+                          <span>
+                            <span class="fw-500">John Doe</span>
+                            <span class="c-grey-600">liked your <span class="text-dark">post</span>
+                            </span>
+                          </span>
+                          <p class="m-0">
+                            <small class="fsz-xs">5 mins ago</small>
+                          </p>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+                        <div class="peer mR-15">
+                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt="" />
+                        </div>
+                        <div class="peer peer-greed">
+                          <span>
+                            <span class="fw-500">Moo Doe</span>
+                            <span class="c-grey-600">liked your
+                              <span class="text-dark">cover image</span>
+                            </span>
+                          </span>
+                          <p class="m-0">
+                            <small class="fsz-xs">7 mins ago</small>
+                          </p>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+                        <div class="peer mR-15">
+                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt="" />
+                        </div>
+                        <div class="peer peer-greed">
+                          <span>
+                            <span class="fw-500">Lee Doe</span>
+                            <span class="c-grey-600">commented on your
+                              <span class="text-dark">video</span>
+                            </span>
+                          </span>
+                          <p class="m-0">
+                            <small class="fsz-xs">10 mins ago</small>
+                          </p>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="pX-20 pY-15 ta-c bdT">
+                  <span>
+                    <a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications
+                      <i class="ti-angle-right fsz-xs mL-10"></i></a>
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li class="notifications dropdown">
+              <span class="counter bgc-blue">3</span>
+              <a href="" class="dropdown-toggle no-after" data-toggle="dropdown">
+                <i class="ti-email"></i>
+              </a>
+
+              <ul class="dropdown-menu">
+                <li class="pX-20 pY-15 bdB">
+                  <i class="ti-email pR-10"></i>
+                  <span class="fsz-sm fw-600 c-grey-900">Emails</span>
+                </li>
+                <li>
+                  <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+                    <li>
+                      <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+                        <div class="peer mR-15">
+                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt="" />
+                        </div>
+                        <div class="peer peer-greed">
+                          <div>
+                            <div class="peers jc-sb fxw-nw mB-5">
+                              <div class="peer">
+                                <p class="fw-500 mB-0">John Doe</p>
+                              </div>
+                              <div class="peer">
+                                <small class="fsz-xs">5 mins ago</small>
+                              </div>
+                            </div>
+                            <span class="c-grey-600 fsz-sm">
+                              Want to create your own customized data
+                              generator for your app...
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+                        <div class="peer mR-15">
+                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt="" />
+                        </div>
+                        <div class="peer peer-greed">
+                          <div>
+                            <div class="peers jc-sb fxw-nw mB-5">
+                              <div class="peer">
+                                <p class="fw-500 mB-0">Moo Doe</p>
+                              </div>
+                              <div class="peer">
+                                <small class="fsz-xs">15 mins ago</small>
+                              </div>
+                            </div>
+                            <span class="c-grey-600 fsz-sm">
+                              Want to create your own customized data
+                              generator for your app...
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+                        <div class="peer mR-15">
+                          <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt="" />
+                        </div>
+                        <div class="peer peer-greed">
+                          <div>
+                            <div class="peers jc-sb fxw-nw mB-5">
+                              <div class="peer">
+                                <p class="fw-500 mB-0">Lee Doe</p>
+                              </div>
+                              <div class="peer">
+                                <small class="fsz-xs">25 mins ago</small>
+                              </div>
+                            </div>
+                            <span class="c-grey-600 fsz-sm">
+                              Want to create your own customized data
+                              generator for your app...
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="pX-20 pY-15 ta-c bdT">
+                  <span>
+                    <a href="email.html" class="c-grey-600 cH-blue fsz-sm td-n">View All Email
+                      <i class="fs-xs ti-angle-right mL-10"></i></a>
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="" class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-toggle="dropdown">
+                <div class="peer mR-10">
+                  <img class="w-2r bdrs-50p" src="https://randomuser.me/api/portraits/men/10.jpg" alt="" />
+                </div>
+                <div class="peer">
+                  <span class="fsz-sm c-grey-900">John Doe</span>
+                </div>
+              </a>
+              <ul class="dropdown-menu fsz-sm">
+                <li>
+                  <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <i class="ti-settings mR-10"></i>
+                    <span>Setting</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <i class="ti-user mR-10"></i>
+                    <span>Profile</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="email.html" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <i class="ti-email mR-10"></i>
+                    <span>Messages</span>
+                  </a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a href="" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700">
+                    <i class="ti-power-off mR-10"></i>
+                    <span>Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ### $App Screen Content ### -->
+      <main class="main-content bgc-grey-100">
+        <div id="mainContent">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="bdrs-3 ov-h bgc-white bd">
+                  <div class="bgc-deep-purple-500 ta-c p-30">
+                    <h1 class="fw-300 mB-5 lh-1 c-white">
+                      01<span class="fsz-def">st</span>
+                    </h1>
+                    <h3 class="c-white">Monday</h3>
+                  </div>
+                  <div class="pos-r">
+                    <button type="button" class="mT-nv-50 pos-a r-10 t-2 btn cur-p bdrs-50p p-0 w-3r h-3r btn-warning">
+                      <i class="ti-plus"></i>
+                    </button>
+                    <ul class="m-0 p-0 mT-20">
+                      <li class="bdB peers ai-c jc-sb fxw-nw">
+                        <a class="td-n p-20 peers fxw-nw mR-20 peer-greed c-grey-900" href="javascript:void(0);"
+                          data-toggle="modal" data-target="#calendar-edit">
+                          <div class="peer mR-15">
+                            <i class="fa fa-fw fa-clock-o c-red-500"></i>
+                          </div>
+                          <div class="peer">
+                            <span class="fw-600">All Day Event</span>
+                            <div class="c-grey-600">
+                              <span class="c-grey-700">Nov 01 - </span>
+                              <i>Website Development</i>
+                            </div>
+                          </div>
+                        </a>
+                        <div class="peers mR-15">
+                          <div class="peer">
+                            <a href="" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-pencil"></i>
+                            </a>
+                          </div>
+                          <div class="peer">
+                            <a href="" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-trash"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="bdB peers ai-c jc-sb fxw-nw">
+                        <a class="td-n p-20 peers fxw-nw mR-20 peer-greed c-grey-900" href="javascript:void(0);"
+                          data-toggle="modal" data-target="#calendar-edit">
+                          <div class="peer mR-15">
+                            <i class="fa fa-fw fa-clock-o c-blue-500"></i>
+                          </div>
+                          <div class="peer">
+                            <span class="fw-600">All Day Event</span>
+                            <div class="c-grey-600">
+                              <span class="c-grey-700">Nov 01 - </span>
+                              <i>Website Development</i>
+                            </div>
+                          </div>
+                        </a>
+                        <div class="peers mR-15">
+                          <div class="peer">
+                            <a href="" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-pencil"></i>
+                            </a>
+                          </div>
+                          <div class="peer">
+                            <a href="" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-trash"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="bdB peers ai-c jc-sb fxw-nw">
+                        <a class="td-n p-20 peers fxw-nw mR-20 peer-greed c-grey-900" href="javascript:void(0);"
+                          data-toggle="modal" data-target="#calendar-edit">
+                          <div class="peer mR-15">
+                            <i class="fa fa-fw fa-clock-o c-indigo-500"></i>
+                          </div>
+                          <div class="peer">
+                            <span class="fw-600">All Day Event</span>
+                            <div class="c-grey-600">
+                              <span class="c-grey-700">Nov 01 - </span>
+                              <i>Website Development</i>
+                            </div>
+                          </div>
+                        </a>
+                        <div class="peers mR-15">
+                          <div class="peer">
+                            <a href="" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-pencil"></i>
+                            </a>
+                          </div>
+                          <div class="peer">
+                            <a href="" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-trash"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="bdB peers ai-c jc-sb fxw-nw">
+                        <a class="td-n p-20 peers fxw-nw mR-20 peer-greed c-grey-900" href="javascript:void(0);"
+                          data-toggle="modal" data-target="#calendar-edit">
+                          <div class="peer mR-15">
+                            <i class="fa fa-fw fa-clock-o c-green-500"></i>
+                          </div>
+                          <div class="peer">
+                            <span class="fw-600">All Day Event</span>
+                            <div class="c-grey-600">
+                              <span class="c-grey-700">Nov 01 - </span>
+                              <i>Website Development</i>
+                            </div>
+                          </div>
+                        </a>
+                        <div class="peers mR-15">
+                          <div class="peer">
+                            <a href="" class="td-n c-deep-purple-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-pencil"></i>
+                            </a>
+                          </div>
+                          <div class="peer">
+                            <a href="" class="td-n c-red-500 cH-blue-500 fsz-md p-5">
+                              <i class="ti-trash"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div id="full-calendar" class="fc fc-unthemed fc-ltr">
+                  <div class="fc-toolbar fc-header-toolbar">
+                    <div class="fc-left">
+                      <div class="fc-button-group">
+                        <button type="button"
+                          class="fc-month-button fc-button fc-state-default fc-corner-left fc-state-active">
+                          month</button><button type="button" class="fc-agendaWeek-button fc-button fc-state-default">
+                          week</button><button type="button"
+                          class="fc-agendaDay-button fc-button fc-state-default fc-corner-right">
+                          day
+                        </button>
+                      </div>
+                    </div>
+                    <div class="fc-right">
+                      <button type="button"
+                        class="fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled"
+                        disabled="">
+                        today
+                      </button>
+                      <div class="fc-button-group">
+                        <button type="button" class="fc-prev-button fc-button fc-state-default fc-corner-left">
+                          <span class="fc-icon fc-icon-left-single-arrow"></span></button><button type="button"
+                          class="fc-next-button fc-button fc-state-default fc-corner-right">
+                          <span class="fc-icon fc-icon-right-single-arrow"></span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="fc-center">
+                      <h2>March 2021</h2>
+                    </div>
+                    <div class="fc-clear"></div>
+                  </div>
+                  <div class="fc-view-container">
+                    <div class="fc-view fc-month-view fc-basic-view">
+                      <table class="">
+                        <thead class="fc-head">
+                          <tr>
+                            <td class="fc-head-container fc-widget-header">
+                              <div class="fc-row fc-widget-header">
+                                <table class="">
+                                  <thead>
+                                    <tr>
+                                      <th class="fc-day-header fc-widget-header fc-sun">
+                                        <span>Sun</span>
+                                      </th>
+                                      <th class="fc-day-header fc-widget-header fc-mon">
+                                        <span>Mon</span>
+                                      </th>
+                                      <th class="fc-day-header fc-widget-header fc-tue">
+                                        <span>Tue</span>
+                                      </th>
+                                      <th class="fc-day-header fc-widget-header fc-wed">
+                                        <span>Wed</span>
+                                      </th>
+                                      <th class="fc-day-header fc-widget-header fc-thu">
+                                        <span>Thu</span>
+                                      </th>
+                                      <th class="fc-day-header fc-widget-header fc-fri">
+                                        <span>Fri</span>
+                                      </th>
+                                      <th class="fc-day-header fc-widget-header fc-sat">
+                                        <span>Sat</span>
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                </table>
+                              </div>
+                            </td>
+                          </tr>
+                        </thead>
+                        <tbody class="fc-body">
+                          <tr>
+                            <td class="fc-widget-content">
+                              <div class="fc-scroller fc-day-grid-container" style="overflow: hidden; height: 669.1px">
+                                <div class="fc-day-grid fc-unselectable">
+                                  <div class="fc-row fc-week fc-widget-content" style="height: 111px">
+                                    <div class="fc-bg">
+                                      <table class="">
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-day fc-widget-content fc-sun fc-other-month fc-past"
+                                              data-date="2021-02-28"></td>
+                                            <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2021-03-01">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2021-03-02">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2021-03-03">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2021-03-04">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2021-03-05">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-sat fc-past" data-date="2021-03-06">
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="fc-content-skeleton">
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <td class="fc-day-top fc-sun fc-other-month fc-past" data-date="2021-02-28">
+                                              <span class="fc-day-number">28</span>
+                                            </td>
+                                            <td class="fc-day-top fc-mon fc-past" data-date="2021-03-01">
+                                              <span class="fc-day-number">1</span>
+                                            </td>
+                                            <td class="fc-day-top fc-tue fc-past" data-date="2021-03-02">
+                                              <span class="fc-day-number">2</span>
+                                            </td>
+                                            <td class="fc-day-top fc-wed fc-past" data-date="2021-03-03">
+                                              <span class="fc-day-number">3</span>
+                                            </td>
+                                            <td class="fc-day-top fc-thu fc-past" data-date="2021-03-04">
+                                              <span class="fc-day-number">4</span>
+                                            </td>
+                                            <td class="fc-day-top fc-fri fc-past" data-date="2021-03-05">
+                                              <span class="fc-day-number">5</span>
+                                            </td>
+                                            <td class="fc-day-top fc-sat fc-past" data-date="2021-03-06">
+                                              <span class="fc-day-number">6</span>
+                                            </td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td></td>
+                                            <td class="fc-event-container">
+                                              <a
+                                                class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
+                                                <div class="fc-content">
+                                                  <span class="fc-time">12a</span>
+                                                  <span class="fc-title">All Day Event</span>
+                                                </div>
+                                              </a>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="fc-row fc-week fc-widget-content" style="height: 111px">
+                                    <div class="fc-bg">
+                                      <table class="">
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-day fc-widget-content fc-sun fc-past" data-date="2021-03-07">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2021-03-08">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2021-03-09">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2021-03-10">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2021-03-11">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2021-03-12">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-sat fc-past" data-date="2021-03-13">
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="fc-content-skeleton">
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <td class="fc-day-top fc-sun fc-past" data-date="2021-03-07">
+                                              <span class="fc-day-number">7</span>
+                                            </td>
+                                            <td class="fc-day-top fc-mon fc-past" data-date="2021-03-08">
+                                              <span class="fc-day-number">8</span>
+                                            </td>
+                                            <td class="fc-day-top fc-tue fc-past" data-date="2021-03-09">
+                                              <span class="fc-day-number">9</span>
+                                            </td>
+                                            <td class="fc-day-top fc-wed fc-past" data-date="2021-03-10">
+                                              <span class="fc-day-number">10</span>
+                                            </td>
+                                            <td class="fc-day-top fc-thu fc-past" data-date="2021-03-11">
+                                              <span class="fc-day-number">11</span>
+                                            </td>
+                                            <td class="fc-day-top fc-fri fc-past" data-date="2021-03-12">
+                                              <span class="fc-day-number">12</span>
+                                            </td>
+                                            <td class="fc-day-top fc-sat fc-past" data-date="2021-03-13">
+                                              <span class="fc-day-number">13</span>
+                                            </td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="fc-row fc-week fc-widget-content" style="height: 111px">
+                                    <div class="fc-bg">
+                                      <table class="">
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-day fc-widget-content fc-sun fc-past" data-date="2021-03-14">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2021-03-15">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2021-03-16">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2021-03-17">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2021-03-18">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-fri fc-past" data-date="2021-03-19">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-sat fc-past" data-date="2021-03-20">
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="fc-content-skeleton">
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <td class="fc-day-top fc-sun fc-past" data-date="2021-03-14">
+                                              <span class="fc-day-number">14</span>
+                                            </td>
+                                            <td class="fc-day-top fc-mon fc-past" data-date="2021-03-15">
+                                              <span class="fc-day-number">15</span>
+                                            </td>
+                                            <td class="fc-day-top fc-tue fc-past" data-date="2021-03-16">
+                                              <span class="fc-day-number">16</span>
+                                            </td>
+                                            <td class="fc-day-top fc-wed fc-past" data-date="2021-03-17">
+                                              <span class="fc-day-number">17</span>
+                                            </td>
+                                            <td class="fc-day-top fc-thu fc-past" data-date="2021-03-18">
+                                              <span class="fc-day-number">18</span>
+                                            </td>
+                                            <td class="fc-day-top fc-fri fc-past" data-date="2021-03-19">
+                                              <span class="fc-day-number">19</span>
+                                            </td>
+                                            <td class="fc-day-top fc-sat fc-past" data-date="2021-03-20">
+                                              <span class="fc-day-number">20</span>
+                                            </td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="fc-row fc-week fc-widget-content" style="height: 111px">
+                                    <div class="fc-bg">
+                                      <table class="">
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-day fc-widget-content fc-sun fc-past" data-date="2021-03-21">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-mon fc-past" data-date="2021-03-22">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-tue fc-past" data-date="2021-03-23">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-wed fc-past" data-date="2021-03-24">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-thu fc-past" data-date="2021-03-25">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-fri fc-today" data-date="2021-03-26">
+                                            </td>
+                                            <td class="fc-day fc-widget-content fc-sat fc-future"
+                                              data-date="2021-03-27"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="fc-content-skeleton">
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <td class="fc-day-top fc-sun fc-past" data-date="2021-03-21">
+                                              <span class="fc-day-number">21</span>
+                                            </td>
+                                            <td class="fc-day-top fc-mon fc-past" data-date="2021-03-22">
+                                              <span class="fc-day-number">22</span>
+                                            </td>
+                                            <td class="fc-day-top fc-tue fc-past" data-date="2021-03-23">
+                                              <span class="fc-day-number">23</span>
+                                            </td>
+                                            <td class="fc-day-top fc-wed fc-past" data-date="2021-03-24">
+                                              <span class="fc-day-number">24</span>
+                                            </td>
+                                            <td class="fc-day-top fc-thu fc-past" data-date="2021-03-25">
+                                              <span class="fc-day-number">25</span>
+                                            </td>
+                                            <td class="fc-day-top fc-fri fc-today" data-date="2021-03-26">
+                                              <span class="fc-day-number">26</span>
+                                            </td>
+                                            <td class="fc-day-top fc-sat fc-future" data-date="2021-03-27">
+                                              <span class="fc-day-number">27</span>
+                                            </td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-event-container" colspan="3">
+                                              <a
+                                                class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
+                                                <div class="fc-content">
+                                                  <span class="fc-time">12a</span>
+                                                  <span class="fc-title">Long Event</span>
+                                                </div>
+                                              </a>
+                                            </td>
+                                            <td rowspan="2"></td>
+                                            <td rowspan="2"></td>
+                                            <td rowspan="2"></td>
+                                            <td class="fc-event-container" rowspan="2">
+                                              <a
+                                                class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
+                                                <div class="fc-content">
+                                                  <span class="fc-time">7p</span>
+                                                  <span class="fc-title">Birthday Party</span>
+                                                </div>
+                                              </a>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td class="fc-event-container">
+                                              <a
+                                                class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
+                                                <div class="fc-content">
+                                                  <span class="fc-time">4p</span>
+                                                  <span class="fc-title">Repeating Event</span>
+                                                </div>
+                                              </a>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="fc-row fc-week fc-widget-content" style="height: 111px">
+                                    <div class="fc-bg">
+                                      <table class="">
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-day fc-widget-content fc-sun fc-future"
+                                              data-date="2021-03-28"></td>
+                                            <td class="fc-day fc-widget-content fc-mon fc-future"
+                                              data-date="2021-03-29"></td>
+                                            <td class="fc-day fc-widget-content fc-tue fc-future"
+                                              data-date="2021-03-30"></td>
+                                            <td class="fc-day fc-widget-content fc-wed fc-future"
+                                              data-date="2021-03-31"></td>
+                                            <td class="fc-day fc-widget-content fc-thu fc-other-month fc-future"
+                                              data-date="2021-04-01"></td>
+                                            <td class="fc-day fc-widget-content fc-fri fc-other-month fc-future"
+                                              data-date="2021-04-02"></td>
+                                            <td class="fc-day fc-widget-content fc-sat fc-other-month fc-future"
+                                              data-date="2021-04-03"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="fc-content-skeleton">
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <td class="fc-day-top fc-sun fc-future" data-date="2021-03-28">
+                                              <span class="fc-day-number">28</span>
+                                            </td>
+                                            <td class="fc-day-top fc-mon fc-future" data-date="2021-03-29">
+                                              <span class="fc-day-number">29</span>
+                                            </td>
+                                            <td class="fc-day-top fc-tue fc-future" data-date="2021-03-30">
+                                              <span class="fc-day-number">30</span>
+                                            </td>
+                                            <td class="fc-day-top fc-wed fc-future" data-date="2021-03-31">
+                                              <span class="fc-day-number">31</span>
+                                            </td>
+                                            <td class="fc-day-top fc-thu fc-other-month fc-future"
+                                              data-date="2021-04-01">
+                                              <span class="fc-day-number">1</span>
+                                            </td>
+                                            <td class="fc-day-top fc-fri fc-other-month fc-future"
+                                              data-date="2021-04-02">
+                                              <span class="fc-day-number">2</span>
+                                            </td>
+                                            <td class="fc-day-top fc-sat fc-other-month fc-future"
+                                              data-date="2021-04-03">
+                                              <span class="fc-day-number">3</span>
+                                            </td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-event-container">
+                                              <a class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable"
+                                                href="http ://google.com/">
+                                                <div class="fc-content">
+                                                  <span class="fc-time">12a</span>
+                                                  <span class="fc-title">Click for Google</span>
+                                                </div>
+                                              </a>
+                                            </td>
+                                            <td></td>
+                                            <td class="fc-event-container">
+                                              <a
+                                                class="fc-day-grid-event fc-h-event fc-event fc-start fc-end fc-draggable">
+                                                <div class="fc-content">
+                                                  <span class="fc-time">4p</span>
+                                                  <span class="fc-title">Repeating Event</span>
+                                                </div>
+                                              </a>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                  <div class="fc-row fc-week fc-widget-content" style="height: 114px">
+                                    <div class="fc-bg">
+                                      <table class="">
+                                        <tbody>
+                                          <tr>
+                                            <td class="fc-day fc-widget-content fc-sun fc-other-month fc-future"
+                                              data-date="2021-04-04"></td>
+                                            <td class="fc-day fc-widget-content fc-mon fc-other-month fc-future"
+                                              data-date="2021-04-05"></td>
+                                            <td class="fc-day fc-widget-content fc-tue fc-other-month fc-future"
+                                              data-date="2021-04-06"></td>
+                                            <td class="fc-day fc-widget-content fc-wed fc-other-month fc-future"
+                                              data-date="2021-04-07"></td>
+                                            <td class="fc-day fc-widget-content fc-thu fc-other-month fc-future"
+                                              data-date="2021-04-08"></td>
+                                            <td class="fc-day fc-widget-content fc-fri fc-other-month fc-future"
+                                              data-date="2021-04-09"></td>
+                                            <td class="fc-day fc-widget-content fc-sat fc-other-month fc-future"
+                                              data-date="2021-04-10"></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <div class="fc-content-skeleton">
+                                      <table>
+                                        <thead>
+                                          <tr>
+                                            <td class="fc-day-top fc-sun fc-other-month fc-future"
+                                              data-date="2021-04-04">
+                                              <span class="fc-day-number">4</span>
+                                            </td>
+                                            <td class="fc-day-top fc-mon fc-other-month fc-future"
+                                              data-date="2021-04-05">
+                                              <span class="fc-day-number">5</span>
+                                            </td>
+                                            <td class="fc-day-top fc-tue fc-other-month fc-future"
+                                              data-date="2021-04-06">
+                                              <span class="fc-day-number">6</span>
+                                            </td>
+                                            <td class="fc-day-top fc-wed fc-other-month fc-future"
+                                              data-date="2021-04-07">
+                                              <span class="fc-day-number">7</span>
+                                            </td>
+                                            <td class="fc-day-top fc-thu fc-other-month fc-future"
+                                              data-date="2021-04-08">
+                                              <span class="fc-day-number">8</span>
+                                            </td>
+                                            <td class="fc-day-top fc-fri fc-other-month fc-future"
+                                              data-date="2021-04-09">
+                                              <span class="fc-day-number">9</span>
+                                            </td>
+                                            <td class="fc-day-top fc-sat fc-other-month fc-future"
+                                              data-date="2021-04-10">
+                                              <span class="fc-day-number">10</span>
+                                            </td>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="calendar-edit">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="bd p-15">
+                    <h5 class="m-0">Add Event</h5>
+                  </div>
+                  <div class="modal-body">
+                    <form>
+                      <div class="form-group">
+                        <label class="fw-500">Event title</label>
+                        <input class="form-control bdc-grey-200" />
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label class="fw-500">Start</label>
+                          <div class="timepicker-input input-icon form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon bgc-white bd bdwR-0">
+                                <i class="ti-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control bdc-grey-200 start-date" placeholder="Datepicker"
+                                data-provide="datepicker" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="fw-500">End</label>
+                          <div class="timepicker-input input-icon form-group">
+                            <div class="input-group">
+                              <div class="input-group-addon bgc-white bd bdwR-0">
+                                <i class="ti-calendar"></i>
+                              </div>
+                              <input type="text" class="form-control bdc-grey-200 end-date" placeholder="Datepicker"
+                                data-provide="datepicker" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="fw-500">Event title</label>
+                        <textarea class="form-control bdc-grey-200" rows="5"></textarea>
+                      </div>
+                      <div class="text-right">
+                        <button class="btn btn-primary cur-p" data-dismiss="modal">
+                          Done
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ### $App Screen Footer ### -->
+      <footer class="bdT ta-c p-30 lh-0 fsz-sm c-grey-600">
+        <span>Copyright © 2019 Designed by
+          <a href="https://colorlib.com" target="_blank" title="Colorlib">Colorlib</a>. All rights reserved.</span>
+      </footer>
+    </div>
+  </div>
+  <script type="text/javascript" src="Js/vendor.js"></script>
+  <script type="text/javascript" src="Js/bundle.js"></script>
+  <script type="text/javascript" src="assets/scripts/sidebar/index.js"></script>
+  <script src="assets/scripts/fullcalendar/index.js"> </script>
+  <script>
+    $(function(e){
+     return void 0 !== vt && vt.event.triggered !== e.type ? vt.event.dispatch.apply(t, arguments) : void 0
+    });
+  </script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
  * @author Harsh Mange
  * @email harshmange44@gmail.com
  * @create date 2021-04-01 01:09:47
- * @modify date 2021-04-01 14:10:35
+ * @modify date 2021-05-05 20:03:23
  * @desc functions to perform GET, POST, PATCH & DELETE on the task schema
  */
 
@@ -47,10 +47,10 @@ async function getTasks() {
     }
   }
 
-// getTasks().then(result => {
-//   tasks = result;
-//   console.log(tasks);
-// })
+getTasks().then(result => {
+  tasks = result;
+  console.log(tasks);
+})
 
 async function getTaskById(id) {
   try {

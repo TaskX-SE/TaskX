@@ -1,3 +1,17 @@
+const axios = require('axios').default;
+
+async function createSession(newSession) {
+
+  try{
+  let res = await axios.post('http://localhost:5000/sessions/add-session', newSession);
+
+  return res.data;
+
+  } catch (error){
+    console.error(error);
+  }
+}
+
 function getMiliseconds(hrs,min,sec)
 {
     return((hrs*60*60+min*60+sec)*1000);
@@ -16,82 +30,97 @@ function msToTime(duration) {
 }
 
 var tasks = [
-    {
-      "taskPriority": 5,
-      "taskStatus": 0,
-      "_id": "1",
-      "taskName": "schema",
-      "taskDesc": "schema creating...",
-      "taskDuration": 2,
-      "taskDeadline": "2020-11-18T17:27:38.000Z",
-      "taskCategory": 1,
-      "__v": 0
-    },
-    
-    {
-      "taskPriority": 5,
-      "taskStatus": 0,
-      "_id": "2",
-      "taskName": "meeting",
-      "taskDesc": " creating...",
-      "taskDuration": 2,
-      "taskDeadline": "2020-11-18T12:27:38.000Z",
-      "taskCategory": 1,
-      "__v": 0
-    },
-
-    {
-      "taskPriority": 5,
-      "taskStatus": 0,
-      "_id": "3",
-      "taskName": "schema",
-      "taskDesc": "schema creating...",
-      "taskDuration": 1.5,
-      "taskDeadline": "2020-11-18T10:27:38.000Z",
-      "taskCategory": 1,
-      "__v": 0
-    },
-
-    
-    
-    {
-      "taskPriority": 5,
-      "taskStatus": 0,
-      "_id": "4",
-      "taskName": "mad",
-      "taskDesc": " creating...",
-      "taskDuration": 8.5,
-      "taskDeadline": "2020-11-18T22:27:38.000Z",
-      "taskCategory": 2,
-      "__v": 0
-    },
-
-   /* {
-    "taskPriority": 3,
-    "taskStatus": 0,
-    "_id": "605b9ae5282955428c892784",
-    "taskName": "mad",
-    "taskDesc": " creating...",
-    "taskDuration": 1.5,
-    "taskDeadline": "2020-11-18T22:27:38.000Z",
-    "taskCategory": 2,
-    "__v": 0
-    },
-
-    {
-      "taskPriority": 1,
-      "taskStatus": 0,
-      "_id": "605c23d2db3f7b3174830f2d",
-      "taskName": "mad",
-      "taskDesc": " creating...",
-      "taskDuration": 15,
-      "taskDeadline": "2020-11-18T17:27:38.000Z",
-      "taskCategory": 1,
-      "__v": 0
-    }*/
+  {
+    taskPriority: -1,
+    taskStatus: 0,
+    _id: '605b754da13b2158e88e7580',
+    taskName: 'schema',
+    taskDesc: 'schema creating...',
+    taskDuration: 30,
+    taskDeadline: '2020-11-28T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: -1,
+    taskStatus: 0,
+    _id: '605b756ef70310413071ff84',
+    taskName: 'schema',
+    taskDesc: 'schema creating...',
+    taskDuration: 30,
+    taskDeadline: '2020-11-28T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: -1,
+    taskStatus: 0,
+    _id: '605b75c9f70310413071ff85',
+    taskName: 'mad',
+    taskDesc: ' creating...',
+    taskDuration: 15,
+    taskDeadline: '2020-11-18T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: -1,
+    taskStatus: 0,
+    _id: '605b9ae5282955428c892784',
+    taskName: 'mad',
+    taskDesc: ' creating...',
+    taskDuration: 15,
+    taskDeadline: '2020-11-18T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: 1,
+    taskStatus: 0,
+    _id: '605c233ddb3f7b3174830f2c',
+    taskName: 'mad',
+    taskDesc: ' creating...',
+    taskDuration: 15,
+    taskDeadline: '2020-11-18T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: 1,
+    taskStatus: 0,
+    _id: '605c23d2db3f7b3174830f2d',
+    taskName: 'mad',
+    taskDesc: ' creating...',
+    taskDuration: 15,
+    taskDeadline: '2020-11-18T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: 1,
+    taskStatus: 1,
+    _id: '605c2ec6d024f34974d3208e',
+    taskName: 'status',
+    taskDesc: ' creating...',
+    taskDuration: 15,
+    taskDeadline: '2020-11-18T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  },
+  {
+    taskPriority: 1,
+    taskStatus: 0,
+    _id: '605c2efdd024f34974d3208f',
+    taskName: 'status',
+    taskDesc: ' creating...',
+    taskDuration: 15,
+    taskDeadline: '2020-11-18T17:27:38.000Z',
+    taskCategory: 1,
+    __v: 0
+  }
 ];
 
-export default function schedule(taskArr){
+function schedule(taskArr){
 var i, cnt = 0;
 let sessions = [];
 
@@ -268,6 +297,9 @@ for(let i = 0; i<tasks.length; i++){
   console.log(tasks[i].taskDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
 }
 schedule(tasks).forEach(element => {
+
+  createSession(element)
+
   console.log(element);
 // console.log(element.sessionDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
 });

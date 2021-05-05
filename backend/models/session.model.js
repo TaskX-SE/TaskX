@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const sessionSchema = new Schema({
     taskId: {
+        type: mongoose.Schema.ObjectId,
+        required: true
+    },
+    taskName: {
         type: String,
         required: true
     },

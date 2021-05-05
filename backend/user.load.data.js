@@ -2,7 +2,7 @@
  * @author Harsh Mange
  * @email harshmange44@gmail.com
  * @create date 2021-04-01 00:19:16
- * @modify date 2021-04-01 14:10:45
+ * @modify date 2021-04-19 11:58:37
  * @desc functions to perform GET, POST, PATCH & DELETE on the user schema
  */
 
@@ -52,10 +52,10 @@ async function getUsers() {
     }
   }
 
-// getUsers().then(result => {
-//   users = result;
-//   console.log(users);
-// })
+getUsers().then(result => {
+  users = result;
+  console.log(users);
+})
 
 async function getUserById(id) {
   try {
