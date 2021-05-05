@@ -1,5 +1,6 @@
 const router = require('express').Router();
 let User = require('../models/user.model');
+var email = require('../email.js');
 
 router.route('/').get((req, res) => {
   User.find()
@@ -20,7 +21,15 @@ router.route('/add-user').post((req, res) => {
   });
 
   newUser.save()
-    .then(() => res.json('User added!'))
+    .then(() => {
+email.welcome(newUser.name, newUser.email);
+
+// email.upcomingTask('parth', 'parthdpatel513@gmail.com', 'complete feature', '03-04-2021');
+
+// email.meetingTask('parth', 'parthdpatel513@gmail.com', 'complete feature', '03-04-2021', 'ww.com')
+
+      res.json('User added!')
+    })
     .catch(err => res.status(400).json('Error: ' + err));
 });
 

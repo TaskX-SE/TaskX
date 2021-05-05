@@ -1,0 +1,86 @@
+.app {
+    background: #ffffff;
+    height: 100vh;
+    padding: 30px;
+  }
+  
+  .todo-list {
+    background: #e8e8e8;
+    border-radius: 8px;
+    max-width: 350px;
+    padding: 25px;
+    width: 300px;
+    height: fit-content;
+    display: block;
+  }
+  
+  .priority{
+      margin: 6px;
+    padding: 2px;
+    height: 50px;
+    width: 5px;
+    border-radius: 5px;
+  }
+  
+  .todo {
+    width: 250px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+    display: flex;
+  align-items: center;
+    margin: 3px;
+    margin-bottom: 13px;
+    padding: 6px 6px;
+    overflow-y: auto;
+  }
+  
+  .btn {
+    float: right;
+  }
+  
+  .deadline {
+    font-size: 0.7rem;
+    display: block;
+    margin: 3px;
+    font-weight: bold;
+    color: rgb(60, 143, 199);
+  }
+  
+  .task-btn {
+    margin: 4px;
+    padding: 3px;
+    font-size: 1.2rem;
+    flex: right;
+      display: flex;
+  }
+  
+  .task-name {
+    /* padding-left: 4px; */
+    /* padding-right: 4px; */
+    font-weight: bold;
+    font-size: 15px;
+    margin: 3px;
+    padding: 3px;
+      border: none;
+      flex: left;
+      display: flex;
+      color: rgb(70, 69, 69);
+  }
+  
+  #deadline-div {
+    display: flex;
+    align-items: left;
+    position: relative;
+    float: left;
+  }
+  
+  #mark-complete {
+    margin-left: 4px;
+    margin-right: 12px;
+  }
+  
+  #remove-task {
+    margin-left: 12px;
+    margin-right: 4px;
+  }
