@@ -64,6 +64,9 @@ router.route('/task/:id').get((req, res) => {
         if (req.body.taskDeadline) {
 			task.taskDeadline = req.body.taskDeadline
 		}
+    if (req.body.taskCategory) {
+			task.taskCategory = req.body.taskCategory.toString()
+		}
     if (req.body.taskPriority) {
 			task.taskPriority = req.body.taskPriority
 		}

@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter as Router, Switch, Route, useParams} from "react-router-dom";
 import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap'
 import App from './App';
+import ContactUsPage from './ContactUs';
 
 class NavBarTaskX extends React.Component{
     render(){
@@ -18,8 +19,9 @@ class NavBarTaskX extends React.Component{
                                 <Navbar.Collapse id="basic-navbar-nav">
                                     <Nav className="mr-auto">
                                     <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/about-us">Contact Us</Nav.Link>
-                                    <Nav.Link href="/contact-us">About Us</Nav.Link>
+                                    <Nav.Link href="/contact-us">Motivational Content</Nav.Link>
+                                    <Nav.Link href="/about-us">About Us</Nav.Link>
+                                    <Nav.Link href="/contact-us">Contact Us</Nav.Link>
                                     {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -39,12 +41,13 @@ class NavBarTaskX extends React.Component{
                                 <Route exact path="/">
                                     <App />
                                 </Route>
+                                
                                 {/* <Route path="/about-us">
                                     <AboutUs />
-                                </Route>
-                                <Route path="/contact-us">
-                                    <ContactUs />
                                 </Route> */}
+                                <Route path="/contact-us">
+                                    <ContactUsPage />
+                                </Route>
                             </Switch>
                         </Router>
                     </div>

@@ -1,10 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./task-list.css";
-import './Time-Converter'
+// import './Time-Converter'
 import getDateTime from "./Time-Converter";
-import { Container, Row, Col } from 'react-bootstrap';
-import ToggleButton from 'react-bootstrap/ToggleButton'
+// import { Container, Row, Col } from 'react-bootstrap';
+// import ToggleButton from 'react-bootstrap/ToggleButton'
 import LazyLoad from "react-lazyload";
+import TaskForm from "./TaskForm";
+// import PageHeader from "../../components/PageHeader";
+// import { makeStyles } from '@material-ui/core';
+import Controls from "./components/controls/Controls";
+// import { Search } from "@material-ui/icons";
+import AddIcon from '@material-ui/icons/Add';
+import Popup from "./components/Popup";
+import * as taskService from "./services/taskService";
+import * as sessionService from "./services/sessionService";
+import schedule from './scheduler'
+const axios = require('axios').default;
+
+// const useStyles = makeStyles(theme => ({
+//   pageContent: {
+//       margin: theme.spacing(5),
+//       padding: theme.spacing(3)
+//   },
+//   searchInput: {
+//       width: '75%'
+//   },
+//   newButton: {
+//       position: 'absolute',
+//       right: '10px'
+//   }
+// }))
+
 
 const Spinner = () => (
   <div className="post loading">
@@ -39,141 +65,6 @@ const Spinner = () => (
   </div>
 );
 
-var tasks = [
-  {
-    "taskPriority": 2,
-    "taskStatus": 0,
-    "_id": "1",
-    "taskName": "schema",
-    "taskDesc": "schema creating...",
-    "taskDuration": 2,
-    "taskDeadline": "2020-11-18T17:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  },
-  
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "2",
-    "taskName": "meeting",
-    "taskDesc": " creating...",
-    "taskDuration": 2,
-    "taskDeadline": "2020-11-18T12:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  },
-
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "3",
-    "taskName": "schema",
-    "taskDesc": "schema creating...",
-    "taskDuration": 1.5,
-    "taskDeadline": "2020-11-18T10:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  },
-
-  
-  
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "4",
-    "taskName": "mad",
-    "taskDesc": " creating...",
-    "taskDuration": 8.5,
-    "taskDeadline": "2020-11-18T22:27:38.000Z",
-    "taskCategory": 2,
-    "__v": 0
-  },
- {
-  "taskPriority": 3,
-  "taskStatus": 0,
-  "_id": "605b9ae5282955428c892784",
-  "taskName": "mad",
-  "taskDesc": " creating...",
-  "taskDuration": 1.5,
-  "taskDeadline": "2020-11-18T22:27:38.000Z",
-  "taskCategory": 2,
-  "__v": 0
-  },
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "1",
-    "taskName": "schema",
-    "taskDesc": "schema creating...",
-    "taskDuration": 2,
-    "taskDeadline": "2020-11-18T17:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  },
-  
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "2",
-    "taskName": "meeting",
-    "taskDesc": " creating...",
-    "taskDuration": 2,
-    "taskDeadline": "2020-11-18T12:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  },
-
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "3",
-    "taskName": "schema",
-    "taskDesc": "schema creating...",
-    "taskDuration": 1.5,
-    "taskDeadline": "2020-11-18T10:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  },
-
-  
-  
-  {
-    "taskPriority": 5,
-    "taskStatus": 0,
-    "_id": "4",
-    "taskName": "mad",
-    "taskDesc": " creating...",
-    "taskDuration": 8.5,
-    "taskDeadline": "2020-11-18T22:27:38.000Z",
-    "taskCategory": 2,
-    "__v": 0
-  },
- {
-  "taskPriority": 3,
-  "taskStatus": 0,
-  "_id": "605b9ae5282955428c892784",
-  "taskName": "mad",
-  "taskDesc": " creating...",
-  "taskDuration": 1.5,
-  "taskDeadline": "2020-11-18T22:27:38.000Z",
-  "taskCategory": 2,
-  "__v": 0
-  },
-
-  {
-    "taskPriority": 1,
-    "taskStatus": 0,
-    "_id": "605c23d2db3f7b3174830f2d",
-    "taskName": "mad",
-    "taskDesc": " creating...",
-    "taskDuration": 15,
-    "taskDeadline": "2020-11-18T17:27:38.000Z",
-    "taskCategory": 1,
-    "__v": 0
-  }
-];
-
 function getPriorityColor(priority){
   if(priority === 2){
       return "red"
@@ -186,20 +77,26 @@ function getPriorityColor(priority){
   return "gray"
 }
 
-function Todo({ todo, index, completeTodo, removeTodo }) {
+function Todo({ todo, index, completeTodo, removeTodo, openInPopup }) {
   return (
     <div>
       <div className="todo">
       <div
-        className="priority"
+        className="priority" onClick={() => openInPopup(todo)}
           style={{ background: getPriorityColor(todo.taskPriority) }}
         >
       </div>
       <div>
-      <div className="task-name"
+      <div className="task-name" onClick={() => openInPopup(todo)}
       style={{ textDecoration: todo.taskStatus ? "line-through" : "none" }}
       >
       {todo.taskName}
+      </div>
+
+      <div className="deadline" id="deadline-div" onClick={() => openInPopup(todo)}
+      style={{ textDecoration: todo.taskStatus ? "line-through" : "none" }}
+      >
+      {getDateTime(todo.taskDeadline)}
       </div>
       <div className="task-btn">
         {todo.taskStatus === 0 ? (
@@ -211,17 +108,13 @@ function Todo({ todo, index, completeTodo, removeTodo }) {
         <a class="fa fa-trash-o" id="remove-task" onClick={() => removeTodo(index)}></a>
       </div>
       </div>
-      <div className="deadline" id="deadline-div"
-      style={{ textDecoration: todo.taskStatus ? "line-through" : "none" }}
-      >
-      {getDateTime(todo.taskDeadline)}
-      </div>
       </div>
   </div>
   );
 }
 
 function TodoForm({ addTodo }) {
+
   const [value, setValue] = React.useState("");
 
   const handleSubmit = e => {
@@ -243,39 +136,239 @@ function TodoForm({ addTodo }) {
   );
 }
 
-function getTasks(){
-  return tasks;
-}
-
 function AppList() {
 
-  const [todos, setTodos] = React.useState(tasks);
+  // const classes = useStyles();
+    const [taskForEdit, setTaskForEdit] = useState(null)
+    const [tasks, setTasks] = useState([])
+    // const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
+    const [openPopup, setOpenPopup] = useState(false)
 
-  const addTodo = text => {
-    const newTodos = [...todos, { text }];
-    setTodos(newTodos);
+    useEffect(async () => {
+      const data = await axios.get(
+        'http://localhost:5000/tasks/',
+        {
+        method: 'get',
+        headers: {
+              'Content-Type': 'application/json'
+            }
+      }).then(function(result) {
+        return result;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+      setTasks(data.data);
+    }, [])
+
+    // const {
+    //     TblContainer,
+    //     TblHead,
+    //     TblPagination,
+    //     tasksAfterPagingAndSorting
+    // } = useTable(tasks, headCells, filterFn);
+
+    // const handleSearch = e => {
+    //     let target = e.target;
+    //     setFilterFn({
+    //         fn: items => {
+    //             if (target.value == "")
+    //                 return items;
+    //             else
+    //                 return items.filter(x => x.fullName.toLowerCase().includes(target.value))
+    //         }
+    //     })
+    // }
+
+    const addOrEdit = (todo, resetForm) => {
+        if (todo._id === "0"){
+            taskService.insertTask(todo)
+            addTodo(todo);
+    }
+        else{
+            taskService.updateTask(todo)
+            updateTodo(todo);
+        }
+        resetForm()
+        setTaskForEdit(null)
+        setOpenPopup(false)
+        
+        // const data = taskService.getTasks().then(result=> {return result;}).catch(err => console.log(err))
+        // setTasks(data)
+      
+    }
+
+    const openInPopup = item => {
+        setTaskForEdit(item)
+        setOpenPopup(true)
+    }
+
+  // const [todos, setTodos] = React.useState(tasks);
+
+  const addTodo = todo => {
+
+    tasks.map(currTodo => {
+      let retrieved = []
+      let data = sessionService.getSessionByTaskId(currTodo._id).then(result=>{
+        return result;
+      }).catch(err=>{console.log(err)});
+
+      console.log("data: "+data)
+      retrieved = data
+
+      if(retrieved.length > 1){
+      retrieved.map(session => {
+        sessionService.deleteSession(session._id);
+      })
+    }else if(retrieved.length == 1){
+      sessionService.deleteSession(retrieved._id);
+    }
+    })
+
+    const newTodos = [...tasks, todo];
+
+    let generatedSessions = schedule(newTodos)
+        generatedSessions.map(session =>{
+        sessionService.createSession(session)
+      })
+    
+
+    setTasks(newTodos);
+  };
+
+  function getIndexById(id){
+
+    let index = 0
+    tasks.map(task => {
+      if(task._id === id){
+        console.log("index: "+index);
+        return index;
+      }
+      index+=1
+      return -1;
+    })
+  };
+
+  const updateTodo = todo => {
+    const newTodos = [...tasks];
+
+    newTodos.map(currTodo => {
+      let retrieved = []
+      let data = sessionService.getSessionByTaskId(currTodo._id).then(result=>{
+        return result;
+      }).catch(err=>{console.log(err)});
+
+      console.log("data: "+data)
+      retrieved = data
+
+      if(retrieved.length > 1){
+      retrieved.map(session => {
+        sessionService.deleteSession(session._id);
+      })
+    }else if(retrieved.length == 1){
+      sessionService.deleteSession(retrieved._id);
+    }
+    })
+
+    let index = 0;
+    let i = 0;
+    tasks.map(task => {
+      if(task._id === todo._id){
+        i = index;
+      }
+      index+=1
+    });
+    newTodos[i] = todo;
+
+    let generatedSessions = schedule(newTodos)
+        generatedSessions.map(session =>{
+        sessionService.createSession(session)
+      })
+
+    setTasks(newTodos);
   };
 
   const completeTodo = index => {
-    const newTodos = [...todos];
+    const newTodos = [...tasks];
+
+    newTodos.map(currTodo => {
+      let retrieved = []
+      let data = sessionService.getSessionByTaskId(currTodo._id).then(result=>{
+        return result;
+      }).catch(err=>{console.log(err)});
+
+      console.log("data: "+data)
+      retrieved = data
+
+      if(retrieved.length > 1){
+      retrieved.map(session => {
+        sessionService.deleteSession(session._id);
+      })
+    }else if(retrieved.length == 1){
+      sessionService.deleteSession(retrieved._id);
+    }
+    })
+
     if(newTodos[index].taskStatus === 0){
       newTodos[index].taskStatus = 1;
     }else{
       newTodos[index].taskStatus = 0;
     }
-    setTodos(newTodos);
+
+    taskService.updateTaskById(newTodos[index]._id, newTodos[index]).then(res=>{setTasks(newTodos)}).catch(err=>{console.log(err)})
+    
+    let generatedSessions = schedule(newTodos)
+        generatedSessions.map(session =>{
+        sessionService.createSession(session)
+      })
   };
 
   const removeTodo = index => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    const newTodos = [...tasks];
+
+    newTodos.map(currTodo => {
+      let retrieved = []
+      let data = sessionService.getSessionByTaskId(currTodo._id).then(result=>{
+        return result;
+      }).catch(err=>{console.log(err)});
+
+      console.log("data: "+data)
+      retrieved = data
+
+      if(retrieved.length > 1){
+      retrieved.map(session => {
+        sessionService.deleteSession(session._id);
+      })
+    }else if(retrieved.length == 1){
+      sessionService.deleteSession(retrieved._id);
+    }
+    })
+
+    taskService.deleteTask(newTodos[index]._id)
+    .then(res=>{
+      newTodos.splice(index, 1);
+      setTasks(newTodos);
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+    
   };
 
   return (
     <div className="app">
+
       <div className="todo-list">
-        {todos.map((todo, index) => (
+      <Controls.Button class="add-btn-material"
+        text="Add Task"
+        variant="outlined"
+        startIcon={<AddIcon />}
+        // className={classes.newButton}
+        onClick={() => { setOpenPopup(true); setTaskForEdit(null); }}
+                    />
+        <div className="scroll">
+        {
+        tasks.map((todo, index) => (
           <LazyLoad
           key={index}
           height={100}
@@ -288,11 +381,22 @@ function AppList() {
             todo={todo}
             completeTodo={completeTodo}
             removeTodo={removeTodo}
+            openInPopup={openInPopup}
           />
           </LazyLoad>
         ))}
-        <TodoForm addTodo={addTodo} />
+        </div>
       </div>
+
+      <Popup
+        title={ (taskForEdit? "Edit":"Create") + " Task"}
+        openPopup={openPopup}
+        setOpenPopup={setOpenPopup}
+        >
+        <TaskForm
+          taskForEdit={taskForEdit}
+          addOrEdit={addOrEdit} />
+          </Popup>
     </div>
   );
 }

@@ -2,11 +2,11 @@
  * @author Harsh Mange
  * @email harshmange44@gmail.com
  * @create date 2021-04-01 02:10:55
- * @modify date 2021-05-05 21:22:55
+ * @modify date 2021-05-07 18:45:46
  * @desc functions to perform GET, POST, PATCH & DELETE on the session schema
  */
  var mongoose = require('mongoose');
- var newId = new mongoose.Types.ObjectId("56cb91bdc3464f14678934ca");
+ var newId = new mongoose.Types.ObjectId("605b75c9f70310413071ff85");
  const axios = require('axios').default;
 
 let session = {};
@@ -46,6 +46,44 @@ async function getSessions() {
 //   console.log(sessions);
 // })
 
+async function getSessionByTaskId(taskId) {
+  try {
+    const response = await axios.get(
+      'http://localhost:5000/sessions/session-by-task-id/'+taskId,
+      {
+      method: 'get',
+      headers: {
+            'Content-Type': 'application/json'
+          }
+    })
+    return response.data;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// getSessionByTaskId("605b756ef70310413071ff84").then(result => {
+//   session = result;
+//   console.log(session);
+// })
+
+
+async function deleteMultipleSessionsByTaskId(taskId) {
+  try {
+    const response = await axios.delete(
+      'http://localhost:5000/sessions/delete-multiple-sessions/'+taskId)
+    return response.data;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// deleteMultipleSessionsByTaskId("605b756ef70310413071ff84").then(result => {
+//   console.log(result);
+// })
+
 async function getSessionById(id) {
   try {
     const response = await axios.get(
@@ -80,9 +118,9 @@ async function createSession(newSession) {
   }
 }
 
-createSession(newSessionDetails).then(response => {
+// createSession(newSessionDetails).then(response => {
   // console.log(response);
-});
+// });
 
 async function updateSession(id,sessionDetails) {
 
@@ -112,6 +150,18 @@ async function deleteSession(id) {
   }
 }
 
-// deleteSession("6064e2a17a22ec169433a2b8").then(response => {
-//   // console.log(response);
+async function deleteSessionByTaskId(id) {
+
+  try{
+  let res = await axios.delete('http://localhost:5000/sessions/delete-session-by-task-id/'+id);
+
+  return res.data;
+
+  } catch (error){
+    console.error(error);
+  }
+}
+
+// deleteSessionByTaskId("605b756ef70310413071ff84").then(response => {
+//   console.log(response);
 // });

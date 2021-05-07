@@ -19,7 +19,7 @@ const taskSchema = new Schema({
         required: true
     },
     taskCategory: {
-        type: Number,   // 1: fixed task, 2: dynamic task, 3: optional task, 4: meeting
+        type: String,   // 1: fixed task, 2: dynamic task, 3: optional task, 4: meeting
         required: true  
     },
     taskPriority: {

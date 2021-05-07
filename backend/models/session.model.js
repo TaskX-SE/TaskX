@@ -4,21 +4,25 @@ const Schema = mongoose.Schema;
 
 const sessionSchema = new Schema({
     taskId: {
-        type: mongoose.Schema.ObjectId,
+        type: String ,
         required: true
     },
     taskName: {
-        type: String,
+        type: String ,
         required: true
     },
     sessionDuration: {
         type: Number,
         required: true
     },
-    sessionDeadline: {
+    sessionStartTime: {
         type: Date,
         required: true
     },
+    sessionDeadline: {
+        type: Date,
+        required: true
+    }
 });
 
 const Session = mongoose.model('Session', sessionSchema);

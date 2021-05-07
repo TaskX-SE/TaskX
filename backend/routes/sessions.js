@@ -13,6 +13,7 @@ router.route('/add-session').post((req, res) => {
       taskId: req.body.taskId,
       taskName: req.body.taskName,
       sessionDuration: req.body.sessionDuration,
+      sessionStartTime: req.body.sessionStartTime,
       sessionDeadline: req.body.sessionDeadline
   });
 
@@ -28,11 +29,14 @@ router.route('/session/:id').get((req, res) => {
   
   });
 
-  router.route('/session-by-task-id/:id').get((req, res) => {
-    Session.find({"taskId":"req.params.id"})
-    .then(session => { res.send(session); })
+  router.route('/session-by-task-id/:taskId').get((req, res) => {
+
+    // var Model = mongoose.model("session.model", Session, "session.model");
+    Session.find({taskId: req.params['taskId']})
+    .then(session => { res.send(session); 
+    // console.log(session)
+  })
     .catch(err => res.status(400).send(err));
-  
   });
 
   router.patch("/update-session/:id", async (req, res) => {
@@ -45,6 +49,9 @@ router.route('/session/:id').get((req, res) => {
 
         if (req.body.sessionDuration) {
 			session.sessionDuration = req.body.sessionDuration
+		}
+    if (req.body.sessionStartTime) {
+			session.sessionStartTime = req.body.sessionStartTime
 		}
         if (req.body.sessionDeadline) {
 			session.sessionDeadline = req.body.sessionDeadline
@@ -66,4 +73,19 @@ router.route('/session/:id').get((req, res) => {
   
   });
 
+  router.route('/delete-session-by-task-id/:id').delete((req, res) => {
+
+    Session.delete({taskId: req.params.id})
+    .then(() => { res.send('Session deleted'); })
+    .catch(err => res.status(400).send(err));
+  
+  });
+
+  router.route('/delete-multiple-sessions/:taskId').delete((req, res) => {
+
+    Session.deleteMany({taskId: req.params['taskId']})
+    .then(() => { res.send('Sessions deleted'); })
+    .catch(err => res.status(400).send(err));
+  
+  });
 module.exports = router;

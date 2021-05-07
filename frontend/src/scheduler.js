@@ -12,7 +12,7 @@ async function createSession(newSession) {
   }
 }
 
-function getMiliseconds(hrs,min,sec)
+export function getMiliseconds(hrs,min,sec)
 {
     return((hrs*60*60+min*60+sec)*1000);
 }
@@ -29,102 +29,104 @@ function msToTime(duration) {
   return hours;
 }
 
-var tasks = [
-  {
-    taskPriority: -1,
-    taskStatus: 0,
-    _id: '605b754da13b2158e88e7580',
-    taskName: 'schema',
-    taskDesc: 'schema creating...',
-    taskDuration: 30,
-    taskDeadline: '2020-11-28T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: -1,
-    taskStatus: 0,
-    _id: '605b756ef70310413071ff84',
-    taskName: 'schema',
-    taskDesc: 'schema creating...',
-    taskDuration: 30,
-    taskDeadline: '2020-11-28T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: -1,
-    taskStatus: 0,
-    _id: '605b75c9f70310413071ff85',
-    taskName: 'mad',
-    taskDesc: ' creating...',
-    taskDuration: 15,
-    taskDeadline: '2020-11-18T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: -1,
-    taskStatus: 0,
-    _id: '605b9ae5282955428c892784',
-    taskName: 'mad',
-    taskDesc: ' creating...',
-    taskDuration: 15,
-    taskDeadline: '2020-11-18T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: 1,
-    taskStatus: 0,
-    _id: '605c233ddb3f7b3174830f2c',
-    taskName: 'mad',
-    taskDesc: ' creating...',
-    taskDuration: 15,
-    taskDeadline: '2020-11-18T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: 1,
-    taskStatus: 0,
-    _id: '605c23d2db3f7b3174830f2d',
-    taskName: 'mad',
-    taskDesc: ' creating...',
-    taskDuration: 15,
-    taskDeadline: '2020-11-18T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: 1,
-    taskStatus: 1,
-    _id: '605c2ec6d024f34974d3208e',
-    taskName: 'status',
-    taskDesc: ' creating...',
-    taskDuration: 15,
-    taskDeadline: '2020-11-18T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  },
-  {
-    taskPriority: 1,
-    taskStatus: 0,
-    _id: '605c2efdd024f34974d3208f',
-    taskName: 'status',
-    taskDesc: ' creating...',
-    taskDuration: 15,
-    taskDeadline: '2020-11-18T17:27:38.000Z',
-    taskCategory: 1,
-    __v: 0
-  }
-];
+// var tasks = [
+//   {
+//     taskPriority: -1,
+//     taskStatus: 0,
+//     _id: '605b754da13b2158e88e7580',
+//     taskName: 'schema',
+//     taskDesc: 'schema creating...',
+//     taskDuration: 30,
+//     taskDeadline: '2020-11-28T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: -1,
+//     taskStatus: 0,
+//     _id: '605b756ef70310413071ff84',
+//     taskName: 'schema',
+//     taskDesc: 'schema creating...',
+//     taskDuration: 30,
+//     taskDeadline: '2020-11-28T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: -1,
+//     taskStatus: 0,
+//     _id: '605b75c9f70310413071ff85',
+//     taskName: 'mad',
+//     taskDesc: ' creating...',
+//     taskDuration: 15,
+//     taskDeadline: '2020-11-18T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: -1,
+//     taskStatus: 0,
+//     _id: '605b9ae5282955428c892784',
+//     taskName: 'mad',
+//     taskDesc: ' creating...',
+//     taskDuration: 15,
+//     taskDeadline: '2020-11-18T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: 1,
+//     taskStatus: 0,
+//     _id: '605c233ddb3f7b3174830f2c',
+//     taskName: 'mad',
+//     taskDesc: ' creating...',
+//     taskDuration: 15,
+//     taskDeadline: '2020-11-18T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: 1,
+//     taskStatus: 0,
+//     _id: '605c23d2db3f7b3174830f2d',
+//     taskName: 'mad',
+//     taskDesc: ' creating...',
+//     taskDuration: 15,
+//     taskDeadline: '2020-11-18T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: 1,
+//     taskStatus: 1,
+//     _id: '605c2ec6d024f34974d3208e',
+//     taskName: 'status',
+//     taskDesc: ' creating...',
+//     taskDuration: 15,
+//     taskDeadline: '2020-11-18T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   },
+//   {
+//     taskPriority: 1,
+//     taskStatus: 0,
+//     _id: '605c2efdd024f34974d3208f',
+//     taskName: 'status',
+//     taskDesc: ' creating...',
+//     taskDuration: 15,
+//     taskDeadline: '2020-11-18T17:27:38.000Z',
+//     taskCategory: 1,
+//     __v: 0
+//   }
+// ];
 
-function schedule(taskArr){
+export default function schedule(taskArr){
 var i, cnt = 0;
 let sessions = [];
 
 for (i = 0; i < taskArr.length; i++) {
+
+  if(taskArr[i].taskStatus == 0){
   if((taskArr[i].taskCategory == 1) || (taskArr[i].taskCategory == 4)){
     //console.log((i + 1));
 
@@ -137,9 +139,10 @@ for (i = 0; i < taskArr.length; i++) {
     });
 
       var session = {
-        "taskId": taskArr[i]._id,
+        "taskId": (taskArr[i]._id),
         "taskName": taskArr[i].taskName,
         "sessionDuration": taskArr[i].taskDuration,
+        "sessionStartTime": new Date(),
         "sessionDeadline": new Date()
     }
 
@@ -149,8 +152,8 @@ for (i = 0; i < taskArr.length; i++) {
   else{
       //Sort according to the deadline
     taskArr.sort(function(a, b){
-        var x = a.taskDeadline.toLowerCase();
-        var y = b.taskDeadline.toLowerCase();
+        var x = new Date(a.taskDeadline);
+        var y = new Date(b.taskDeadline);
         if (x < y) {return -1;}
         if (x > y) {return 1;}
         return 0;
@@ -172,9 +175,10 @@ for (i = 0; i < taskArr.length; i++) {
           for (j = 0; j < (Q - 1); j++){
             
               session = {
-                "taskId": taskArr[i]._id,
+                "taskId": (taskArr[i]._id),
                 "taskName": taskArr[i].taskName,
                 "sessionDuration": 1.5,
+                "sessionStartTime": new Date(),
                 "sessionDeadline": new Date()
             }
 
@@ -182,9 +186,10 @@ for (i = 0; i < taskArr.length; i++) {
           }
 
            session = {
-            "taskId": taskArr[i]._id,
+            "taskId": (taskArr[i]._id),
             "taskName": taskArr[i].taskName,
             "sessionDuration": taskArr[i].taskDuration - ((Q - 1)* 1.5),
+            "sessionStartTime": new Date(),
             "sessionDeadline": new Date()
         }
 
@@ -197,15 +202,17 @@ for (i = 0; i < taskArr.length; i++) {
 
      else{
        session = {
-        "taskId": taskArr[i]._id,
+        "taskId": (taskArr[i]._id),
         "taskName": taskArr[i].taskName,
         "sessionDuration": taskArr[i].taskDuration,
+        "sessionStartTime": new Date(),
         "sessionDeadline": new Date()
       }
       sessions.push(session);
      }
      
   }
+}
   //console.log(taskArr[i].taskDeadline);
   //console.log(taskArr[i].taskPriority);
   }
@@ -242,6 +249,8 @@ let total_sessions = sessions.length;
 for (i = 0; i < total_sessions; i++){
     
 if(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0) < end_date_time.getTime()){
+
+  sessions[i].sessionDeadline = new Date(curr_date_time);
   curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0));
   // curr_date_time.getTime() = curr_date_time.getTime() + sessions[i].sessionDuration;
   sessions[i].sessionDeadline = new Date(curr_date_time);
@@ -250,7 +259,6 @@ if(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0) < 
 else if(end_date_time.getTime() - curr_date_time.getTime() >= getMiliseconds(0,30,0)){
   let durationTemp = (Math.abs(end_date_time.getTime() - curr_date_time.getTime()) / (1000 * 60 * 60)) % 24;
   // console.log("durationTemp: "+durationTemp)
-  curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(durationTemp,0,0));
   if(durationTemp>=1.25){
     durationTemp = 1.25
   }else if(durationTemp>=1){
@@ -261,13 +269,17 @@ else if(end_date_time.getTime() - curr_date_time.getTime() >= getMiliseconds(0,3
     durationTemp = 0.5
   }
   var session1 = {
-    "taskId": sessions[i].taskId,
-    "taskName": taskArr[i].taskName,
+    "taskId": (sessions[i].taskId),
+    "taskName": sessions[i].taskName,
     "sessionDuration": durationTemp,
-    "sessionDeadline": new Date(curr_date_time)
+    "sessionStartTime": new Date(curr_date_time),
+    "sessionDeadline": new Date(curr_date_time.getTime() + getMiliseconds(durationTemp,0,0))
   }
 
-  sessions[i].sessionDuration -= durationTemp
+  curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(durationTemp,0,0));
+
+  // sessions[i].sessionDuration -= durationTemp
+
   sessions.splice(i, 0, session1);
   total_sessions++;
   // sessions.push(session1)
@@ -279,6 +291,7 @@ else{
   // console.log(curr_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
   // console.log(end_date_time.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
 
+  sessions[i].sessionStartTime = new Date(curr_date_time);
   curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0));
   sessions[i].sessionDeadline = new Date(curr_date_time);
 }
@@ -293,15 +306,16 @@ else{
 return sessions;
 }
 
-for(let i = 0; i<tasks.length; i++){
-  console.log(tasks[i].taskDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
-}
-schedule(tasks).forEach(element => {
+// for(let i = 0; i<tasks.length; i++){
+//   console.log(tasks[i].taskDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+// }
 
-  createSession(element)
+// schedule(tasks).forEach(element => {
 
-  console.log(element);
-// console.log(element.sessionDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
-});
+//   createSession(element)
+
+//   console.log(element);
+// // console.log(element.sessionDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
+// });
 
 //console.log(taskArr.length);
