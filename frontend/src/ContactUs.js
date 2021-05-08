@@ -1,11 +1,28 @@
-import React from "react";
+import React, {useState} from "react";
 import './ContactUs-css.css'
+var sendEmail = require('./email.js');
 
 function ContactUsPage(){
 
+    const [name, setName] = useState(null)
+    const [email, setEmail] = useState(null)
+    const [feedback, setFeedback] = useState(null)
+
+    function updateName(evt) {
+        setName(evt.target.value);
+      }
+
+      function updateEmail(evt) {
+        setEmail(evt.target.value);
+      }
+
+      function updateFeedback(evt) {
+        setFeedback(evt.target.value);
+      }
+
     const handleSubmit = e => {
         e.preventDefault();
-        
+        sendEmail.feedback(name, email, feedback);
       }
 
   return (
@@ -19,17 +36,17 @@ function ContactUsPage(){
             <div className="row">
               <div className="col-lg-12">
                 <div className="form-group mt-2">
-                  <input className="form-control text-white" type="text" placeholder="name"></input>
+                  <input className="form-control text-white" value={name} onChange={evt => updateName(evt)} type="text" placeholder="name"></input>
                 </div>
               </div>
               <div className="col-lg-12">
                 <div className="form-group mt-2">
-                  <input className="form-control text-white" type="email" placeholder="email address"></input>
+                  <input className="form-control text-white" value={email} onChange={evt => updateEmail(evt)} type="email" placeholder="email address"></input>
                 </div>
               </div>
               <div className="col-lg-12">
                 <div className="form-group mt-2">
-                  <textarea className="form-control text-white" rows="3" placeholder="message"></textarea>
+                  <textarea className="form-control text-white" value={feedback} onChange={evt => updateFeedback(evt)} rows="3" placeholder="message"></textarea>
                 </div>
               </div>
               <div className="col-lg-12 d-flex align-items-center mt-2">
