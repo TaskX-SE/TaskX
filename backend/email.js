@@ -93,8 +93,7 @@ module.exports.feedback = function(name, mail, feedback) {
         from: 'noreply.taskx@gmail.com',
         to: mail,
         subject: 'We Got You!!!',
-        html: '<h3 style="color:#000">Hello '+name+',</h3><p>I hope you are doing good and Our product is helping you to make your day much more productive. <br/> We have just received your feedback. We really value your input, and I hope you will stop by and say hi the next time you are in. </p><br/><h5>Thank You!!</h5><h4>TaskX</h4><br/><p><hr>Your Response:<br/>'+feedback+'</p>'
-
+        html: '<h3 style="color:#000">Hello '+name+',</h3><p>I hope you are doing good and Our product is helping you to make your day much more productive. <br/><br/> We&#39;ve just received your feedback. We really value your input, and I hope you&#39;ll stop by and say hi the next time you are in. </p><br/><h4>Thank You!!</h4><h4>TaskX</h4><br/><p><hr>Your Response:<br/>'+feedback+'</p>'
     };
 
     transporter.sendMail(mailOptions, function(err, info) {

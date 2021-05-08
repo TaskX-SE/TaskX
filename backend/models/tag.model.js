@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+require('mongoose-type-email');
 
 const tagSchema = new Schema({
     googleId: {
-        type: Number,
+        type: String,
         required: true
     },
     email: {
-        type: Date,
+        type: mongoose.SchemaTypes.Email,
         required: true
     }
 });

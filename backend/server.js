@@ -69,6 +69,8 @@ const usersRouter = require('./routes/users');
 const tasksRouter = require('./routes/tasks');
 const sessionsRouter = require('./routes/sessions');
 const tagsRouter = require('./routes/tags');
+const feedbacksRouter = require('./routes/feedback');
+
 //Routes
 // app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
@@ -78,6 +80,7 @@ app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);
 app.use('/sessions', sessionsRouter);
 app.use('/tags', tagsRouter);
+app.use('/feedbacks', feedbacksRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

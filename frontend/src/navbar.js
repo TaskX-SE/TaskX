@@ -49,6 +49,9 @@ class NavBarTaskX extends React.Component{
                                 {/* <Route path="/about-us">
                                     <AboutUs />
                                 </Route> */}
+                                <Route path="#home">
+                                    <App />
+                                </Route>
                                 <Route path="/contact-us">
                                     <ContactUsPage />
                                 </Route>

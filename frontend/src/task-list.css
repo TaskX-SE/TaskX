@@ -70,10 +70,13 @@
 
 .task-btn {
   margin-top: -22px;
-  padding-left: 3px;
+  padding-left: 33px;
   padding-top: -3px;
   padding-bottom: 3px;
   padding-right: 3px;
+  position: relative;
+  /* max-width: 80px; */
+  /* margin-left: 50px; */
   /* padding: 3px; */
   font-size: 1.2rem;
   flex: right;
@@ -102,11 +105,11 @@
 
 #mark-complete {
   margin-left: 4px;
-  margin-right: 12px;
+  /* margin-right: 12px; */
 }
 
 #remove-task {
-  margin-left: 12px;
+  margin-left: 15px;
   margin-right: 4px;
 }
 

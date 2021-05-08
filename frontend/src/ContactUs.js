@@ -1,11 +1,23 @@
 import React, {useState} from "react";
 import './ContactUs-css.css'
-var sendEmail = require('./email.js');
+const axios = require('axios').default;
+
+async function createFeedback(newFeedback) {
+
+  try{
+  let res = await axios.post('http://localhost:5000/feedbacks/add-feedback', newFeedback);
+
+  return res.data;
+
+  } catch (error){
+    console.error(error);
+  }
+}
 
 function ContactUsPage(){
 
-    const [name, setName] = useState(null)
-    const [email, setEmail] = useState(null)
+    const [userName, setName] = useState(null)
+    const [userEmail, setEmail] = useState(null)
     const [feedback, setFeedback] = useState(null)
 
     function updateName(evt) {
@@ -22,7 +34,12 @@ function ContactUsPage(){
 
     const handleSubmit = e => {
         e.preventDefault();
-        sendEmail.feedback(name, email, feedback);
+        const newFeedback = {
+          "name": userName,
+          "email": userEmail,
+          "response": feedback
+        }
+        createFeedback(newFeedback);
       }
 
   return (
@@ -36,12 +53,12 @@ function ContactUsPage(){
             <div className="row">
               <div className="col-lg-12">
                 <div className="form-group mt-2">
-                  <input className="form-control text-white" value={name} onChange={evt => updateName(evt)} type="text" placeholder="name"></input>
+                  <input className="form-control text-white" value={userName} onChange={evt => updateName(evt)} type="text" placeholder="name"></input>
                 </div>
               </div>
               <div className="col-lg-12">
                 <div className="form-group mt-2">
-                  <input className="form-control text-white" value={email} onChange={evt => updateEmail(evt)} type="email" placeholder="email address"></input>
+                  <input className="form-control text-white" value={userEmail} onChange={evt => updateEmail(evt)} type="email" placeholder="email address"></input>
                 </div>
               </div>
               <div className="col-lg-12">

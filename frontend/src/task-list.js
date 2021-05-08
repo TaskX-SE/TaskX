@@ -444,7 +444,7 @@ function AppList() {
             titleAccessor="taskName"
             startAccessor="sessionStartTime"
             endAccessor="sessionDeadline"
-            views={['month', 'week']}
+            views={['month']}
             // components={{
             //   timeSlotWrapper: ColoredDateCellWrapper,
             // }}
