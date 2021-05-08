@@ -6,8 +6,10 @@ import getDateTime from "./Time-Converter";
 // import ToggleButton from 'react-bootstrap/ToggleButton'
 import LazyLoad from "react-lazyload";
 import TaskForm from "./TaskForm";
+import { Search } from "@material-ui/icons";
+
 // import PageHeader from "../../components/PageHeader";
-// import { makeStyles } from '@material-ui/core';
+import { makeStyles, InputAdornment } from '@material-ui/core';
 import Controls from "./components/controls/Controls";
 // import { Search } from "@material-ui/icons";
 import AddIcon from '@material-ui/icons/Add';
@@ -17,19 +19,19 @@ import * as sessionService from "./services/sessionService";
 import schedule from './scheduler'
 const axios = require('axios').default;
 
-// const useStyles = makeStyles(theme => ({
-//   pageContent: {
-//       margin: theme.spacing(5),
-//       padding: theme.spacing(3)
-//   },
-//   searchInput: {
-//       width: '75%'
-//   },
-//   newButton: {
-//       position: 'absolute',
-//       right: '10px'
-//   }
-// }))
+const useStyles = makeStyles(theme => ({
+  pageContent: {
+      margin: theme.spacing(5),
+      padding: theme.spacing(3)
+  },
+  searchInput: {
+      width: '75%'
+  },
+  newButton: {
+      position: 'absolute',
+      right: '10px'
+  }
+}))
 
 
 const Spinner = () => (
@@ -138,10 +140,10 @@ function TodoForm({ addTodo }) {
 
 function AppList() {
 
-  // const classes = useStyles();
+  const classes = useStyles();
     const [taskForEdit, setTaskForEdit] = useState(null)
     const [tasks, setTasks] = useState([])
-    // const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
+    const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
 
     useEffect(async () => {
@@ -161,24 +163,17 @@ function AppList() {
       setTasks(data.data);
     }, [])
 
-    // const {
-    //     TblContainer,
-    //     TblHead,
-    //     TblPagination,
-    //     tasksAfterPagingAndSorting
-    // } = useTable(tasks, headCells, filterFn);
-
-    // const handleSearch = e => {
-    //     let target = e.target;
-    //     setFilterFn({
-    //         fn: items => {
-    //             if (target.value == "")
-    //                 return items;
-    //             else
-    //                 return items.filter(x => x.fullName.toLowerCase().includes(target.value))
-    //         }
-    //     })
-    // }
+    const handleSearch = e => {
+        let target = e.target;
+        setFilterFn({
+            fn: items => {
+                if (target.value == "")
+                    return items;
+                else
+                    return items.filter(x => x.taskName.toLowerCase().includes(target.value.toLowerCase()))
+            }
+        })
+    }
 
     const addOrEdit = (todo, resetForm) => {
         if (todo._id === "0"){
@@ -197,6 +192,10 @@ function AppList() {
         // setTasks(data)
       
     }
+
+    const getTasksList = () => {
+      return filterFn.fn(tasks)
+  }
 
     const openInPopup = item => {
         setTaskForEdit(item)
@@ -359,16 +358,26 @@ function AppList() {
     <div className="app">
 
       <div className="todo-list">
+      <Controls.Input
+                        label="Search"
+                        className={classes.searchInput}
+                        InputProps={{
+                            startAdornment: (<InputAdornment position="start">
+                                <Search />
+                            </InputAdornment>)
+                        }}
+                        onChange={handleSearch}
+                    />
       <Controls.Button class="add-btn-material"
         text="Add Task"
         variant="outlined"
         startIcon={<AddIcon />}
-        // className={classes.newButton}
+        className={classes.newButton}
         onClick={() => { setOpenPopup(true); setTaskForEdit(null); }}
                     />
         <div className="scroll">
         {
-        tasks.map((todo, index) => (
+        getTasksList().map((todo, index) => (
           <LazyLoad
           key={index}
           height={100}
