@@ -385,7 +385,8 @@ function AppList() {
 
   return (
     <div className="app">
-
+      <div className="row">
+      <div className="center col-lg-5 col-sm-12 col-md-12 col-xl-5">
       <div className="todo-list">
       <Controls.Input
                         label="Search"
@@ -397,6 +398,7 @@ function AppList() {
                         }}
                         onChange={handleSearch}
                     />
+                    <br/>
       <Controls.Button class="add-btn-material"
         text="Add Task"
         variant="outlined"
@@ -425,7 +427,7 @@ function AppList() {
         ))}
         </div>
       </div>
-
+      </div>
       <Popup
         title={ (taskForEdit? "Edit":"Create") + " Task"}
         openPopup={openPopup}
@@ -435,7 +437,7 @@ function AppList() {
           taskForEdit={taskForEdit}
           addOrEdit={addOrEdit} />
           </Popup>
-
+          <div className="center col-lg-7 col-sm-12 col-md-12 col-xl-7">
           <div className="calendar-div col">
           <Calendar
             events={sessions}
@@ -458,7 +460,9 @@ function AppList() {
             defaultDate={moment().toDate()}
             localizer={localizer}
           />
+          </div>
         </div>
+      </div>
     </div>
   );
 }

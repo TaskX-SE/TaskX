@@ -9,8 +9,9 @@ router.route('/').get((req, res) => {
 });
 
 router.get('/getCurrentUser', (req,res)=>{
-  user=>req.json(user);
-  console.log(user);
+  console.log(req.user.displayname);
+  // user=>res.json(user);
+  // console.log(user);
 })
 router.route('/add-user').post((req, res) => {
 

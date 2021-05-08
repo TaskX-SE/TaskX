@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {BrowserRouter as Router, Switch, Route, useParams} from "react-router-dom";
 import { Navbar,Nav,NavDropdown,Form,FormControl,Button } from 'react-bootstrap'
 import App from './App';
+import Motivation from './motivation';
 import ContactUsPage from './ContactUs';
 import UserDetails from './userdetails';
 import MediaCard from './login';
@@ -21,11 +22,10 @@ class NavBarTaskX extends React.Component{
                                 <Navbar.Collapse id="basic-navbar-nav">
                                     <Nav className="mr-auto">
                                     <Nav.Link href="/">Home</Nav.Link>
-                                    <Nav.Link href="/contact-us">Motivational Content</Nav.Link>
+                                    <Nav.Link href="/motivation">Motivational Content</Nav.Link>
                                     <Nav.Link href="/contact-us">Contact Us</Nav.Link>
-                                    <Nav.Link href="/about-us">About Us</Nav.Link>
                                     <Nav.Link href="/user">User</Nav.Link>
-                                    <Nav.Link href="/login">Login</Nav.Link>
+                                    {/* <Nav.Link href="/login">Login</Nav.Link> */}
                                     {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                         <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -51,6 +51,9 @@ class NavBarTaskX extends React.Component{
                                 </Route> */}
                                 <Route path="/contact-us">
                                     <ContactUsPage />
+                                </Route>
+                                <Route path="/motivation">
+                                    <Motivation />
                                 </Route>
                                 <Route path="/user">
                                     <UserDetails />
