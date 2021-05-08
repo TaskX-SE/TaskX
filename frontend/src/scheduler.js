@@ -123,7 +123,7 @@ function msToTime(duration) {
 export default function schedule(taskArr){
 var i, cnt = 0;
 let sessions = [];
-
+console.log("taskArr..."+taskArr)
 for (i = 0; i < taskArr.length; i++) {
 
   if(taskArr[i].taskStatus == 0){

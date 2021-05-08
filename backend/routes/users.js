@@ -8,6 +8,10 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.get('/getCurrentUser', (req,res)=>{
+  user=>req.json(user);
+  console.log(user);
+})
 router.route('/add-user').post((req, res) => {
 
   const newUser = new User({
@@ -19,6 +23,7 @@ router.route('/add-user').post((req, res) => {
       university: req.body.university,
       xp: req.body.xp
   });
+
 
   newUser.save()
     .then(() => {

@@ -7,7 +7,9 @@ import getDateTime from "./Time-Converter";
 import LazyLoad from "react-lazyload";
 import TaskForm from "./TaskForm";
 import { Search } from "@material-ui/icons";
-
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 // import PageHeader from "../../components/PageHeader";
 import { makeStyles, InputAdornment } from '@material-ui/core';
 import Controls from "./components/controls/Controls";
@@ -18,6 +20,9 @@ import * as taskService from "./services/taskService";
 import * as sessionService from "./services/sessionService";
 import schedule from './scheduler'
 const axios = require('axios').default;
+
+const localizer = momentLocalizer(moment);
+
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -115,34 +120,12 @@ function Todo({ todo, index, completeTodo, removeTodo, openInPopup }) {
   );
 }
 
-function TodoForm({ addTodo }) {
-
-  const [value, setValue] = React.useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!value) return;
-    addTodo(value);
-    setValue("");
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="input"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-    </form>
-  );
-}
-
 function AppList() {
 
   const classes = useStyles();
     const [taskForEdit, setTaskForEdit] = useState(null)
     const [tasks, setTasks] = useState([])
+    const [sessions, setSessions] = useState([])
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
 
@@ -161,7 +144,37 @@ function AppList() {
         console.log(error);
       });
       setTasks(data.data);
+
+      const dataSessions = await axios.get(
+        'http://localhost:5000/sessions/',
+        {
+        method: 'get',
+        headers: {
+              'Content-Type': 'application/json'
+            }
+      }).then(function(result) {
+        return result;
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+
+      if(dataSessions.length>1){
+      dataSessions.map(currSession=>{
+        currSession.sessionStartTime = moment(currSession.sessionStartTime).toDate()
+        currSession.deadline = moment(currSession.deadline).toDate()
+      })
+    }else{
+      dataSessions.sessionStartTime = moment(dataSessions.sessionStartTime).toDate()
+      dataSessions.deadline = moment(dataSessions.deadline).toDate()
+    }
+
+      setSessions(dataSessions.data);
     }, [])
+
+    // useEffect(async () => {
+      
+    // }, [])
 
     const handleSearch = e => {
         let target = e.target;
@@ -224,15 +237,20 @@ function AppList() {
     }
     })
 
+    // const newTask = taskService.getTaskById(todo._id);
+
     const newTodos = [...tasks, todo];
 
-    let generatedSessions = schedule(newTodos)
+    let generatedSessions = schedule(newTodos);
+
+    console.log(generatedSessions);
         generatedSessions.map(session =>{
         sessionService.createSession(session)
       })
     
 
     setTasks(newTodos);
+    setSessions(generatedSessions);
   };
 
   function getIndexById(id){
@@ -285,6 +303,7 @@ function AppList() {
       })
 
     setTasks(newTodos);
+    setSessions(generatedSessions);
   };
 
   const completeTodo = index => {
@@ -303,9 +322,11 @@ function AppList() {
       retrieved.map(session => {
         sessionService.deleteSession(session._id);
       })
+
     }else if(retrieved.length == 1){
       sessionService.deleteSession(retrieved._id);
     }
+
     })
 
     if(newTodos[index].taskStatus === 0){
@@ -320,10 +341,13 @@ function AppList() {
         generatedSessions.map(session =>{
         sessionService.createSession(session)
       })
+
+      setSessions(generatedSessions);
   };
 
   const removeTodo = index => {
     const newTodos = [...tasks];
+    let refactoredSessions = []
 
     newTodos.map(currTodo => {
       let retrieved = []
@@ -338,10 +362,15 @@ function AppList() {
       retrieved.map(session => {
         sessionService.deleteSession(session._id);
       })
+      refactoredSessions = sessions.filter( ( el ) => !retrieved.includes( el ) );
+
     }else if(retrieved.length == 1){
       sessionService.deleteSession(retrieved._id);
+      refactoredSessions = sessions.filter( ( el ) => !retrieved.includes( el ) );
     }
     })
+
+    setSessions(refactoredSessions);
 
     taskService.deleteTask(newTodos[index]._id)
     .then(res=>{
@@ -406,6 +435,30 @@ function AppList() {
           taskForEdit={taskForEdit}
           addOrEdit={addOrEdit} />
           </Popup>
+
+          <div className="calendar-div col">
+          <Calendar
+            events={sessions}
+            titleAccessor="taskName"
+            startAccessor="sessionStartTime"
+            endAccessor="sessionDeadline"
+            views={['month', 'week']}
+            // components={{
+            //   timeSlotWrapper: ColoredDateCellWrapper,
+            // }}
+            eventPropGetter={event => {
+
+
+              const backgroundColor = '#605c5b';
+
+              return { style: { backgroundColor } };
+
+          }}
+            formats={{weekdayFormat: (date, culture, localizer) => localizer.format(date, 'dddd', culture)}}
+            defaultDate={moment().toDate()}
+            localizer={localizer}
+          />
+        </div>
     </div>
   );
 }

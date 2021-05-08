@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import list from './events'
 import AppList from './task-list'
 import getMiliseconds from './scheduler'
 import axios from 'axios';
@@ -49,11 +48,11 @@ class App extends React.Component {
           var pushedSessions = []
          allSessions.map(currSession => {
            this.state.tasks.map(currTask => {
-             if(currSession.taskId === currTask._id){
+            //  if(currSession.taskId === currTask._id){
                currSession.sessionStartTime = moment(currSession.sessionStartTime).toDate()
                currSession.deadline = moment(currSession.deadline).toDate()
               pushedSessions.push(currSession);
-             }
+            //  }
            })
          })
          this.setState({
@@ -84,11 +83,11 @@ class App extends React.Component {
   render() {
     return (
       <div className="main-container container">
-        <div className="row">
+        {/* <div className="row"> */}
         <div className="task-list-div col">
         <AppList/>
         </div>
-      <div className="calendar-div col">
+      {/* <div className="calendar-div col">
           <Calendar
             events={this.state.sessions}
             titleAccessor="taskName"
@@ -110,8 +109,8 @@ class App extends React.Component {
             defaultDate={moment().toDate()}
             localizer={localizer}
           />
-        </div>
-        </div>
+        </div> */}
+        {/* </div> */}
         </div>
     )
   }

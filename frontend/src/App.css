@@ -1,17 +1,5 @@
 .task-list-div {
-  width: 100px;
+  width: 100%;
   margin: 4px;
   padding: 4px;
-}
-
-.calendar-div {
-  min-height: 680px;
-  min-width: 550px;
-  background-color: #fff;
-  margin: 4px;
-  padding: 4px;
-}
-
-.rbc-calendar {
-  min-height: 580px;
 }

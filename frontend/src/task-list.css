@@ -3,7 +3,17 @@
   height: 100vh;
   padding: 30px;
 }
+.calendar-div {
+  min-height: 680px;
+  min-width: 550px;
+  background-color: #fff;
+  margin: 4px;
+  padding: 4px;
+}
 
+.rbc-calendar {
+  min-height: 580px;
+}
 .todo-list {
   background: #e8e8e8;
   border-radius: 8px;
