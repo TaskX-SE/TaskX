@@ -139,7 +139,7 @@ for (i = 0; i < taskArr.length; i++) {
     });
 
       var session = {
-        "taskId": (taskArr[i]._id),
+        "taskId": (taskArr[i].toString()),
         "taskName": taskArr[i].taskName,
         "sessionDuration": taskArr[i].taskDuration,
         "sessionStartTime": new Date(),
@@ -250,7 +250,8 @@ for (i = 0; i < total_sessions; i++){
     
 if(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0) < end_date_time.getTime()){
 
-  sessions[i].sessionDeadline = new Date(curr_date_time);
+  curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(0,15,0))
+  sessions[i].sessionStartTime = new Date(curr_date_time);
   curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0));
   // curr_date_time.getTime() = curr_date_time.getTime() + sessions[i].sessionDuration;
   sessions[i].sessionDeadline = new Date(curr_date_time);

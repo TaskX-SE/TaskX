@@ -1,5 +1,34 @@
 const router = require('express').Router();
 let Task = require('../models/task.model');
+const mongoose = require("mongoose")
+
+// const connectDB = async () => {
+// try{
+//   const conn = await mongoose.connect(process.env.MONGO_URI, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false
+//   })
+//   console.log(`MongoDB Connected: ${conn.connection.host}`)
+// }catch(err)
+// {
+//   console.error(err);
+//   process.exit(1)
+// }
+
+// }
+
+// function getNextSequence(name) {
+//   var ret = connectDB.collection('taskCounterCollection').findAndModify(
+//          {
+//            query: { _id: name },
+//            update: { $inc: { seq: 1 } },
+//            new: true
+//          }
+//   );
+
+//   return ret.seq;
+// }
 
 router.route('/').get((req, res) => {
   Task.find()
@@ -10,6 +39,7 @@ router.route('/').get((req, res) => {
 router.route('/add-task').post((req, res) => {
 
   const newTask = new Task({
+      // _id: req.params._id,
       taskName: req.body.taskName,
       taskDesc: req.body.taskDesc,
       taskDuration: req.body.taskDuration,
@@ -32,6 +62,13 @@ router.route('/task/:id').get((req, res) => {
   
   });
 
+  router.route('/get-latest-task').get((req, res) => {
+    Task.find().sort({ _id: -1 }).limit(1)
+    .then(task => { res.send(task); })
+    .catch(err => res.status(400).send(err));
+  
+  });
+  
 //   router.route('/task-by-user-id/:user_id').get((req, res) => {
 
 //     Task.find({ 'userId': user_id }, function(err, tasks) {

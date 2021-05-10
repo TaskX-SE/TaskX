@@ -12,25 +12,25 @@ class UserDetails extends React.Component {
         super(props);
 
         this.state ={
-            displayname :'',
-            firstname :'',
-            lastname :'',
-            image : ''
+            displayname :'Harsh Mange',
+            firstname :'Harsh',
+            lastname :'Mange',
+            image : 'https://lh3.googleusercontent.com/a-/AOh14GhPwbLbK5iifgOX8Wzx56bA9dQ7pMNukGSoV-y2=s96-c'
         }
     }
 
-    componentDidMount(){
-        axios.get('http://localhost:5000/users/getCurrentUser')
-           .then(response => {
-               this.setState({displayname : response.user.displayname,
-                firstname:response.user.firstname,
-                lastname:response.user.lastname,
-                image:response.user.image
+    // componentDidMount(){
+    //     axios.get('http://localhost:5000/users/getCurrentUser')
+    //        .then(response => {
+    //            this.setState({displayname : response.user.displayname,
+    //             firstname:response.user.firstname,
+    //             lastname:response.user.lastname,
+    //             image:response.user.image
 
-               })
-           })
-           .catch(err =>{ console.log('error :'+err)});
-    }
+    //            })
+    //        })
+    //        .catch(err =>{ console.log('error :'+err)});
+    // }
 
     render() {
 // function userDetails(){

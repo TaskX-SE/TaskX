@@ -26,7 +26,7 @@ export async function getSessions() {
  export async function getSessionByTaskId(taskId) {
   try {
     const response = await axios.get(
-      'http://localhost:5000/sessions/session-by-task-id/'+taskId,
+      'http://localhost:5000/sessions/session-by-task-id/'+taskId.toString(),
       {
       method: 'get',
       headers: {

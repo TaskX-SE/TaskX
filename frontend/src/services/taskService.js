@@ -59,6 +59,23 @@ export async function getTaskById(id) {
   }
 }
 
+export async function getLatestTask() {
+  try {
+    const response = await axios.get(
+      'http://localhost:5000/tasks/get-latest-task/',
+      {
+      method: 'get',
+      headers: {
+            'Content-Type': 'application/json'
+          }
+    })
+    return response.data;
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // getTaskById("605b756ef70310413071ff84").then(result => {
 //   task = result;
 //   console.log(task);

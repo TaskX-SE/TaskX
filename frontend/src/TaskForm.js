@@ -18,7 +18,7 @@ const initialFValues = {
     taskDuration: 0,
     taskCategory: "2",  // 1: fixed task, 2: dynamic task, 3: optional task, 4: meeting
     taskPriority: -1, // -1: optional default, 0: low, 1: medium, 2: high
-    taskDeadline: new Date(),
+    taskDeadline: new Date(new Date().getTime() + 60000),
     taskStatus: 0,
 }
 

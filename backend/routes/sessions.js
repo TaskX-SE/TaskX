@@ -10,7 +10,7 @@ router.route('/').get((req, res) => {
 router.route('/add-session').post((req, res) => {
 
   const newSession = new Session({
-      taskId: req.body.taskId,
+      taskId: req.body.taskId.toString(),
       taskName: req.body.taskName,
       sessionDuration: req.body.sessionDuration,
       sessionStartTime: req.body.sessionStartTime,

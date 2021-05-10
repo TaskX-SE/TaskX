@@ -8,11 +8,11 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.get('/getCurrentUser', (req,res)=>{
-  console.log(req.user.displayname);
+// router.get('/getCurrentUser', (req,res)=>{
+  // console.log(req.user.displayname);
   // user=>res.json(user);
   // console.log(user);
-})
+// })
 router.route('/add-user').post((req, res) => {
 
   const newUser = new User({

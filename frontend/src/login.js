@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import "./TaskX_Logo2.png";
 
 const useStyles = makeStyles({
   root: {
@@ -21,19 +22,20 @@ export default function MediaCard() {
   const classes = useStyles();
 
   return (
+    <div className="justify-content-center">
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="TaskX_Logo2.png"
-          title="task x"
+          image ="https://drive.google.com/file/d/1MuYvkYEgJ2J2p3ND1HvIzRMOFvyxEMfv/view?usp=sharing"
+          title="TaskX"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          {/* <Typography gutterBottom variant="h5" component="h2">
             Lizard
-          </Typography>
+          </Typography> */}
           <Typography variant="body2" color="textSecondary" component="p">
-          TASKX is a web-application which can help the users to create and maintain schedules for their daily tasks in a smart and effective manner.
+          TaskX is a web-application which can help the users to create and maintain schedules for their daily tasks in a smart and effective manner.
             </Typography>
         </CardContent>
       </CardActionArea>
@@ -44,5 +46,6 @@ export default function MediaCard() {
         </Button>
       </CardActions>
     </Card>
+    </div>
   );
 }

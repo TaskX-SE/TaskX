@@ -7,6 +7,7 @@ import App from './App';
 import Motivation from './motivation';
 import ContactUsPage from './ContactUs';
 import UserDetails from './userdetails';
+import Agenda from './agenda';
 import MediaCard from './login';
 
 class NavBarTaskX extends React.Component{
@@ -17,11 +18,12 @@ class NavBarTaskX extends React.Component{
                     <div className="col-md-12">
                         <Router>
                             <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
-                                <Navbar.Brand href="#home">TaskX</Navbar.Brand>
+                                <Navbar.Brand href="/">TaskX</Navbar.Brand>
                                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                                 <Navbar.Collapse id="basic-navbar-nav">
                                     <Nav className="mr-auto">
                                     <Nav.Link href="/">Home</Nav.Link>
+                                    {/* <Nav.Link href="/agenda">Agenda</Nav.Link> */}
                                     <Nav.Link href="/motivation">Motivational Content</Nav.Link>
                                     <Nav.Link href="/contact-us">Contact Us</Nav.Link>
                                     <Nav.Link href="/user">User</Nav.Link>
@@ -55,6 +57,9 @@ class NavBarTaskX extends React.Component{
                                 <Route path="/contact-us">
                                     <ContactUsPage />
                                 </Route>
+                                {/* <Route path="/agenda">
+                                    <Agenda />
+                                </Route> */}
                                 <Route path="/motivation">
                                     <Motivation />
                                 </Route>

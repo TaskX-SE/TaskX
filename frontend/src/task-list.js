@@ -2,6 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./task-list.css";
 // import './Time-Converter'
 import getDateTime from "./Time-Converter";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 // import { Container, Row, Col } from 'react-bootstrap';
 // import ToggleButton from 'react-bootstrap/ToggleButton'
 import LazyLoad from "react-lazyload";
@@ -19,6 +25,7 @@ import Popup from "./components/Popup";
 import * as taskService from "./services/taskService";
 import * as sessionService from "./services/sessionService";
 import schedule from './scheduler'
+var mongoose = require('mongoose');
 const axios = require('axios').default;
 
 const localizer = momentLocalizer(moment);
@@ -84,6 +91,32 @@ function getPriorityColor(priority){
   return "gray"
 }
 
+function dialog({eventObj,open,handleClose}){
+  return (
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{eventObj.taskName}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {eventObj.sessionDeadline}
+          </DialogContentText>
+        </DialogContent>
+        {/* <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Disagree
+          </Button>
+          
+        </DialogActions> */}
+      </Dialog>
+    </div>
+  );
+}
+
 function Todo({ todo, index, completeTodo, removeTodo, openInPopup }) {
   return (
     <div>
@@ -128,6 +161,15 @@ function AppList() {
     const [sessions, setSessions] = useState([])
     const [filterFn, setFilterFn] = useState({ fn: items => { return items; } })
     const [openPopup, setOpenPopup] = useState(false)
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     useEffect(async () => {
       const data = await axios.get(
@@ -161,15 +203,17 @@ function AppList() {
 
       if(dataSessions.length>1){
       dataSessions.map(currSession=>{
-        currSession.sessionStartTime = moment(currSession.sessionStartTime).toDate()
-        currSession.deadline = moment(currSession.deadline).toDate()
+        currSession.sessionStartTime = new Date(currSession.sessionStartTime)  // moment(currSession.sessionStartTime).toDate()
+        currSession.deadline = new Date(currSession.deadline) // moment(currSession.deadline).toDate()
       })
-    }else{
-      dataSessions.sessionStartTime = moment(dataSessions.sessionStartTime).toDate()
-      dataSessions.deadline = moment(dataSessions.deadline).toDate()
-    }
+      setSessions(dataSessions);
 
+    }else{
+      dataSessions.sessionStartTime = new Date(dataSessions.sessionStartTime) // moment(dataSessions.sessionStartTime).toDate()
+      dataSessions.deadline = new Date(dataSessions.deadline) // moment(dataSessions.deadline).toDate()
       setSessions(dataSessions.data);
+    }
+      // setSessions(dataSessions.data);
     }, [])
 
     // useEffect(async () => {
@@ -188,9 +232,25 @@ function AppList() {
         })
     }
 
+  //   const openSession = e => {
+  //     alert(e.target)
+  // }
+
     const addOrEdit = (todo, resetForm) => {
         if (todo._id === "0"){
+
+          todo._id = new mongoose.Types.ObjectId().toString();
+
             taskService.insertTask(todo)
+            // const response = axios.get(
+            //   'http://localhost:5000/tasks/get-latest-task/',
+            //   {
+            //   method: 'get',
+            //   headers: {
+            //         'Content-Type': 'application/json'
+            //       }
+            // }).then(data=>{return data;}).catch(err=>{console.log(err)})
+
             addTodo(todo);
     }
         else{
@@ -232,12 +292,12 @@ function AppList() {
       retrieved.map(session => {
         sessionService.deleteSession(session._id);
       })
-    }else if(retrieved.length == 1){
+    }else if(retrieved.length === 1){
       sessionService.deleteSession(retrieved._id);
     }
     })
 
-    // const newTask = taskService.getTaskById(todo._id);
+    // const newTask = taskService.getLatestTask();
 
     const newTodos = [...tasks, todo];
 
@@ -245,6 +305,7 @@ function AppList() {
 
     console.log(generatedSessions);
         generatedSessions.map(session =>{
+          console.log(session.taskId)
         sessionService.createSession(session)
       })
     
@@ -282,7 +343,7 @@ function AppList() {
       retrieved.map(session => {
         sessionService.deleteSession(session._id);
       })
-    }else if(retrieved.length == 1){
+    }else if(retrieved.length === 1){
       sessionService.deleteSession(retrieved._id);
     }
     })
@@ -364,7 +425,7 @@ function AppList() {
       })
       refactoredSessions = sessions.filter( ( el ) => !retrieved.includes( el ) );
 
-    }else if(retrieved.length == 1){
+    }else if(retrieved.length === 1){
       sessionService.deleteSession(retrieved._id);
       refactoredSessions = sessions.filter( ( el ) => !retrieved.includes( el ) );
     }
@@ -438,12 +499,16 @@ function AppList() {
           addOrEdit={addOrEdit} />
           </Popup>
           <div className="center col-lg-7 col-sm-12 col-md-12 col-xl-7">
-          <div className="calendar-div col">
+          <div className="calendar-div col" style={{height: '100%', width: '100%'}}>
           <Calendar
             events={sessions}
             titleAccessor="taskName"
             startAccessor="sessionStartTime"
             endAccessor="sessionDeadline"
+            onSelectEvent={event => {
+              // dialog({event,open, handleClose})
+              // setOpen(true)
+          }}
             views={['month']}
             // components={{
             //   timeSlotWrapper: ColoredDateCellWrapper,
