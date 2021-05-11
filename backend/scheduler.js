@@ -1,17 +1,5 @@
 const axios = require('axios').default;
 
-async function createSession(newSession) {
-
-  try{
-  let res = await axios.post('http://localhost:5000/sessions/add-session', newSession);
-
-  return res.data;
-
-  } catch (error){
-    console.error(error);
-  }
-}
-
 function getMiliseconds(hrs,min,sec)
 {
     return((hrs*60*60+min*60+sec)*1000);
@@ -250,7 +238,7 @@ for (i = 0; i < total_sessions; i++){
     
 if(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0) < end_date_time.getTime()){
 
-  sessions[i].sessionDeadline = new Date(curr_date_time);
+  sessions[i].sessionStartTime = new Date(curr_date_time);
   curr_date_time.setTime(curr_date_time.getTime() + getMiliseconds(sessions[i].sessionDuration,0,0));
   // curr_date_time.getTime() = curr_date_time.getTime() + sessions[i].sessionDuration;
   sessions[i].sessionDeadline = new Date(curr_date_time);
@@ -312,9 +300,7 @@ return sessions;
 
 schedule(tasks).forEach(element => {
 
-  createSession(element)
-
-  console.log(element.taskId);
+  console.log(element);
 // console.log(element.sessionDeadline.toLocaleString('en-US', {timeZone: "Asia/Kolkata"}));
 });
 
